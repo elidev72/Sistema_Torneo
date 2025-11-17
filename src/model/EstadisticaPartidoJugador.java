@@ -9,7 +9,7 @@ public class EstadisticaPartidoJugador {
 	private int iAsistencias;
 	private int iMinutosJugados;
 	
-	public EstadisticaPartidoJugador(long lId, Jugador oJugador, int iGoles, int iAsistencias, int iMinutosJugados) {
+	public EstadisticaPartidoJugador(Jugador oJugador, int iGoles, int iAsistencias, int iMinutosJugados) {
 		super();
 		this.lId = EstadisticaPartidoJugador.lNextId++;
 		this.oJugador = oJugador;

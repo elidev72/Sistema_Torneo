@@ -6,7 +6,7 @@ public class Entrenador extends Persona {
 	private String sEstrategiaFavorita;
 
 	public Entrenador(String sApellido, String sNombre, String sDNI, LocalDate ldFechaDeNacimiento,
-			String sEstrategiaFavorita) {
+			String sEstrategiaFavorita) throws Exception {
 		super(sApellido, sNombre, sDNI, ldFechaDeNacimiento);
 		this.sEstrategiaFavorita = sEstrategiaFavorita;
 	}

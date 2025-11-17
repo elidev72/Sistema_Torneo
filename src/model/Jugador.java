@@ -9,7 +9,7 @@ public class Jugador extends Persona {
 	private int iNumeroDeCamiseta;
 	
 	public Jugador(String sApellido, String sNombre, String sDNI, LocalDate ldFechaDeNacimiento, float fEstatura,
-			float fPeso, String sPosición, int iNumeroDeCamiseta) {
+			float fPeso, String sPosición, int iNumeroDeCamiseta) throws Exception {
 		super(sApellido, sNombre, sDNI, ldFechaDeNacimiento);
 		this.fEstatura = fEstatura;
 		this.fPeso = fPeso;
@@ -53,6 +53,6 @@ public class Jugador extends Persona {
 	public String toString() {
 		return "Jugador " + super.toString() + ", fEstatura=" + fEstatura + ", fPeso=" + fPeso + ", sPosición=" + sPosición
 				+ ", iNumeroDeCamiseta=" + iNumeroDeCamiseta + "]";
-	}
+	}	
 	
 }
