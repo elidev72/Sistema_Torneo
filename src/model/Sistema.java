@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Sistema {
@@ -208,7 +209,8 @@ public class Sistema {
 		return "Equipo más alto es (" + sRetorno + ") con una altura de: " + fMax;
 	}
 	
-	public String tablaPosiciones(Torneo oTorneo) {
+	public String tablaPosiciones(long lIdTorneo) {
+		Torneo oTorneo = this.traerTorneoPorId(lIdTorneo);
 		String sTabla = oTorneo.getsNombre() + " " + oTorneo.getsTemporada() + ":\n";
 		List<Equipo> lstEquiposTorneo = oTorneo.getLtsEquipos();
 		List<EquipoPuntosTorneo> lstEquiposPuntos = new ArrayList<EquipoPuntosTorneo>();
@@ -232,4 +234,39 @@ public class Sistema {
 		return partido.agregarEstadisticaPartido(Sistema.getInstance().traerJugadorPorsDNI(sDNIJugador), iGoles, iAsistencias, iMinutosJugados);
 	}
 	
+	public String tablaDeGoleadores(long lIdTorneo) throws Exception {
+		Torneo oTorneo = this.traerTorneoPorId(lIdTorneo);
+		String sTabla = "Goleadores " + oTorneo.getsNombre() + " " + oTorneo.getsTemporada() + ":\n";
+		List<EstadisticasTorneoJugador> lst = oTorneo.listaDeEstadisticaDeJugadores();
+		
+		lst.sort(Comparator.comparingInt(EstadisticasTorneoJugador::getiTotalGoles).reversed()
+				.thenComparingInt(EstadisticasTorneoJugador::getiTotalMinutosJugados));
+		
+		for(EstadisticasTorneoJugador e: lst) {
+			
+			if(e.getiTotalGoles() > 0)
+				sTabla += e.getoJugador().getsApellido() + " " + e.getoJugador().getsNombre() + ": " + e.getiTotalGoles() + " goles --- " + e.getiTotalMinutosJugados() + "min.\n";
+			
+		}
+		
+		return sTabla;
+	}
+	
+	public String tablaDeAsistidores(long lIdTorneo) throws Exception {
+		Torneo oTorneo = this.traerTorneoPorId(lIdTorneo);
+		String sTabla = "Goleadores " + oTorneo.getsNombre() + " " + oTorneo.getsTemporada() + ":\n";
+		List<EstadisticasTorneoJugador> lst = oTorneo.listaDeEstadisticaDeJugadores();
+		
+		lst.sort(Comparator.comparingInt(EstadisticasTorneoJugador::getiTotalAsistencias).reversed()
+				.thenComparingInt(EstadisticasTorneoJugador::getiTotalMinutosJugados));
+		
+		for(EstadisticasTorneoJugador e: lst) {
+			
+			if(e.getiTotalAsistencias() > 0)
+				sTabla += e.getoJugador().getsApellido() + " " + e.getoJugador().getsNombre() + ": " + e.getiTotalAsistencias() + " asistencias --- " + e.getiTotalMinutosJugados() + "min.\n";
+			
+		}
+		
+		return sTabla;
+	}
 }

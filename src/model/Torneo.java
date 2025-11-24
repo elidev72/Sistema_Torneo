@@ -198,4 +198,54 @@ public class Torneo {
 		return oPartido;
 	}
 	
+	public EstadisticasTorneoJugador calculoEstadisticasJugadorPorTorneo(Jugador oJugador) throws Exception {
+		boolean bExiste = false;
+		int i = 0, iTam = this.ltsEquipos.size();
+		
+		while(!bExiste && i < iTam) {
+			List<Jugador> lst = this.ltsEquipos.get(i).getLtsJugadores();
+			
+			if(lst.contains(oJugador))
+				bExiste = true;
+			
+			i++;
+		}
+		
+		if(!bExiste)
+			throw new Exception("El jugador no existe en el torneo.");
+		
+		EstadisticasTorneoJugador oETJ = new EstadisticasTorneoJugador(oJugador);
+		
+		for(Partido p: this.ltsPartidos) {
+			
+			for(EstadisticaPartidoJugador j: p.getLtsEstadisticasJugadores()) {
+				
+				if(j.getoJugador().equals(oJugador)) 
+					oETJ.sumarEstadisticaPartido(j.getiGoles(), j.getiAsistencias(), j.getiMinutosJugados());
+				
+			}
+				
+		}
+		
+		return oETJ;
+	}
+	
+	public List<EstadisticasTorneoJugador> listaDeEstadisticaDeJugadores() throws Exception{
+		List<EstadisticasTorneoJugador> lst = new ArrayList<>();
+		
+		for(Equipo e: this.ltsEquipos) {
+			
+			for(Jugador j: e.getLtsJugadores()) {
+				EstadisticasTorneoJugador aux = this.calculoEstadisticasJugadorPorTorneo(j);
+				
+				if(aux.getiTotalAsistencias() > 0 || aux.getiTotalGoles() > 0)
+					lst.add(aux);
+				
+			}
+			
+		}
+		
+		return lst;
+	}
+	
 }

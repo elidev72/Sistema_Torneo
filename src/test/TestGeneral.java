@@ -107,12 +107,30 @@ public class TestGeneral {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println(Sistema.getInstance().tablaPosiciones(oTorneo));
+		System.out.println(Sistema.getInstance().tablaPosiciones(lIdTorneo));
 		
 		System.out.println("\nPartidos en el torneo:");
 		System.out.println("-------------------------------------");
 		for(Partido p: oTorneo.getLtsPartidos())
 			System.out.println(p);
+		
+		System.out.println("\nGoleadores en el torneo:");
+		System.out.println("-------------------------------------");
+		try {
+			System.out.println(Sistema.getInstance().tablaDeGoleadores(lIdTorneo));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		System.out.println("\nAsistidores en el torneo:");
+		System.out.println("-------------------------------------");
+		try {
+			System.out.println(Sistema.getInstance().tablaDeAsistidores(lIdTorneo));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 }
