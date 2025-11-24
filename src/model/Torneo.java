@@ -156,4 +156,46 @@ public class Torneo {
 		return lstJugador;
 	}
 	
+	public int puntosPorEquipo(Equipo oEquipo) {
+		int iPuntos = 0;
+		
+		List<Partido> partidos = this.getLtsPartidos();
+		for(Partido p: partidos) {
+			
+			if(p.getoEquipoLocal().equals(oEquipo) || p.getoEquipoVisitante().equals(oEquipo)) {
+				Equipo oGanador = p.ganador();
+				
+				if(oGanador == null) {
+					iPuntos++;
+				}
+				else if(oGanador.equals(oEquipo))
+					iPuntos += 3;
+				
+			}
+			
+			
+		}
+		
+		return iPuntos;
+	}
+	
+	public Partido traerPartidoPorId(long lId) throws Exception {
+		Partido oPartido = null;
+		int i = 0, iTam = this.ltsPartidos.size();
+		
+		while(oPartido == null && i<iTam) {
+			Partido aux = this.getLtsPartidos().get(i);
+			
+			if(aux.getlId() == lId)
+				oPartido = aux;
+			
+			i++;
+		}
+		
+		if(oPartido == null)
+			throw new Exception("ERROR: El partido no existe en el torneo.");
+		
+		return oPartido;
+	}
+	
 }

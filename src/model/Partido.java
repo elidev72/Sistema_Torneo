@@ -102,8 +102,12 @@ public class Partido {
 	private int calcularGoles(Equipo oEquipo) {
 		int iGoles = 0;
 		
-		for(EstadisticaPartidoJugador e: this.getLtsEstadisticasJugadores())
-			iGoles += e.getiGoles();
+		for(EstadisticaPartidoJugador e: this.getLtsEstadisticasJugadores()) {
+			
+			if(oEquipo.getLtsJugadores().contains(e.getoJugador()))
+				iGoles += e.getiGoles();
+			
+		}
 		
 		return iGoles;
 	}
@@ -118,6 +122,20 @@ public class Partido {
 			oGanador = this.oEquipoLocal;
 		
 		return oGanador;
+	}
+	
+	public boolean agregarEstadisticaPartido(Jugador oJugador, int iGoles, int iAsistencias, int iMinutosJugados) throws Exception {
+		List<Jugador> lst = new ArrayList<>(this.getoEquipoLocal().getLtsJugadores());
+		lst.addAll(this.getoEquipoVisitante().getLtsJugadores());
+		
+		if(!lst.contains(oJugador))
+			throw new Exception("ERROR: Jugador no pertenece a ninguno de los 2 equipos.");
+		
+		EstadisticaPartidoJugador aux = new EstadisticaPartidoJugador(oJugador, iGoles, iAsistencias, iMinutosJugados);
+		if(this.getLtsEstadisticasJugadores().contains(aux))
+			throw new Exception("ERROR: Jugador ya tiene estadisticas en el partido.");
+		
+		return this.ltsEstadisticasJugadores.add(aux);
 	}
 	
 }

@@ -100,6 +100,19 @@ public class TestGeneral {
 			e1.printStackTrace();
 		}
 		
+		System.out.println("\nTabla de Posiciones:");
+		try {
+			test.TestAgregarDatos.agregarResultadosPartidos(lIdTorneo);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println(Sistema.getInstance().tablaPosiciones(oTorneo));
+		
+		System.out.println("\nPartidos en el torneo:");
+		System.out.println("-------------------------------------");
+		for(Partido p: oTorneo.getLtsPartidos())
+			System.out.println(p);
 	}
 
 }

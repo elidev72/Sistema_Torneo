@@ -84,11 +84,17 @@ public class Sistema {
 		return bAgregado;
 	}
 	
-	public boolean agregarPartidoEnTorneo(long lIdTorneo, LocalDateTime ldtFecha, String sEstadio, Equipo oEquipoLocal, Equipo oEquipoVisitante) throws Exception {
+	private Torneo existeTorneo(long lIdTorneo) throws Exception {
 		Torneo oTorneo = this.traerTorneoPorId(lIdTorneo);
 		
 		if(oTorneo == null)
 			throw new Exception("ERROR: no existe el torneo con id " + lIdTorneo);
+		
+		return oTorneo;
+	}
+	
+	public boolean agregarPartidoEnTorneo(long lIdTorneo, LocalDateTime ldtFecha, String sEstadio, Equipo oEquipoLocal, Equipo oEquipoVisitante) throws Exception {
+		Torneo oTorneo = existeTorneo(lIdTorneo);
 		
 		Partido oPartido = new Partido(ldtFecha, sEstadio, oEquipoLocal, oEquipoVisitante);
 		
@@ -112,7 +118,7 @@ public class Sistema {
 		return oAux;
 	}
 
-	public Equipo traerEquipoPorCodigoUnico(String sCodigoUnico) {
+	public Equipo traerEquipoPorCodigoUnico(String sCodigoUnico) throws Exception {
 		Equipo oAux = null, oTemp;
 		int i = 0, iTam = this.ltsEquipos.size();
 		
@@ -125,10 +131,13 @@ public class Sistema {
 			i++;
 		}
 		
+		if(oAux == null)
+			throw new Exception("ERROR: El equipo no existe en el torneo.");
+		
 		return oAux;
 	}
 	
-	public Entrenador traerEntrenadorPorsDNI(String sDNI) {
+	public Entrenador traerEntrenadorPorsDNI(String sDNI) throws Exception {
 		Entrenador oAux = null, oTemp;
 		int i = 0, iTam = this.getLtsEntrenadores().size();
 		
@@ -140,6 +149,28 @@ public class Sistema {
 			
 			i++;
 		}
+		
+		if(oAux == null)
+			throw new Exception("No existe el entrenador con DNI: " + sDNI);
+		
+		return oAux;
+	}
+	
+	public Jugador traerJugadorPorsDNI(String sDNI) throws Exception {
+		Jugador oAux = null, oTemp;
+		int i = 0, iTam = this.getLtsJugadores().size();
+		
+		while(oAux == null && i < iTam) {
+			oTemp = this.ltsJugadores.get(i);
+			
+			if(oTemp.getsDNI().equalsIgnoreCase(sDNI))
+				oAux = oTemp;
+			
+			i++;
+		}
+		
+		if(oAux == null)
+			throw new Exception("No existe el jugador con DNI: " + sDNI);
 		
 		return oAux;
 	}
@@ -176,4 +207,29 @@ public class Sistema {
 			
 		return "Equipo más alto es (" + sRetorno + ") con una altura de: " + fMax;
 	}
+	
+	public String tablaPosiciones(Torneo oTorneo) {
+		String sTabla = oTorneo.getsNombre() + " " + oTorneo.getsTemporada() + ":\n";
+		List<Equipo> lstEquiposTorneo = oTorneo.getLtsEquipos();
+		List<EquipoPuntosTorneo> lstEquiposPuntos = new ArrayList<EquipoPuntosTorneo>();
+		
+		for(Equipo e: lstEquiposTorneo)
+			lstEquiposPuntos.add(new EquipoPuntosTorneo(e, oTorneo.puntosPorEquipo(e)));
+		
+		lstEquiposPuntos.sort((a, b) -> Integer.compare(b.getiPuntos(), a.getiPuntos()));
+		
+		for(EquipoPuntosTorneo e: lstEquiposPuntos)
+			sTabla += e.getoEquipo().getsNombre() + " --- " + e.getiPuntos() + "pts.\n";
+			
+		return sTabla;
+	}
+	
+	public boolean agregarEstadisticaPartidoTorneo(long lIdTorneo, long lIdPartido, String sDNIJugador, int iGoles, int iAsistencias, int iMinutosJugados) throws Exception {
+		Torneo oTorneo = existeTorneo(lIdTorneo);
+		
+		Partido partido = oTorneo.traerPartidoPorId(lIdPartido);
+		
+		return partido.agregarEstadisticaPartido(Sistema.getInstance().traerJugadorPorsDNI(sDNIJugador), iGoles, iAsistencias, iMinutosJugados);
+	}
+	
 }

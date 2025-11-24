@@ -1,9 +1,6 @@
 package model;
 
 public class EstadisticasTorneoJugador {
-	private static long lNextId = 1;
-	
-	private final long lId;
 	private Jugador oJugador;
     private int iTotalGoles = 0;
     private int iTotalAsistencias = 0;
@@ -11,16 +8,7 @@ public class EstadisticasTorneoJugador {
     
 	public EstadisticasTorneoJugador(Jugador oJugador) {
 		super();
-		this.lId = EstadisticasTorneoJugador.lNextId++;
 		this.oJugador = oJugador;
-	}
-
-	public static long getlNextId() {
-		return lNextId;
-	}
-
-	public long getlId() {
-		return lId;
 	}
 
 	public Jugador getoJugador() {
@@ -47,7 +35,7 @@ public class EstadisticasTorneoJugador {
 
 	@Override
 	public String toString() {
-		return "EstadisticasTorneoJugador [lId=" + lId + ", oJugador=" + oJugador + ", iTotalGoles=" + iTotalGoles
+		return "EstadisticasTorneoJugador [oJugador=" + oJugador.getsApellido() + " " + oJugador.getsNombre() + ", iTotalGoles=" + iTotalGoles
 				+ ", iTotalAsistencias=" + iTotalAsistencias + ", iTotalMinutosJugados=" + iTotalMinutosJugados + "]";
 	}
 	

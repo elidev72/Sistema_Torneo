@@ -3,6 +3,7 @@ package test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import model.*;
 
@@ -81,5 +82,11 @@ public class TestAgregarDatos {
 		Sistema.getInstance().agregarJugadorAEquipoYSistema("Velazco", "Alan", "10000026", LocalDate.of(2000, 6, 8), 1.78f, 75.0f, "Mediocampista", 30, "RCL");
 		Sistema.getInstance().agregarJugadorAEquipoYSistema("Zárate", "Carlos", "10000027", LocalDate.of(1996, 9, 3), 1.83f, 79.0f, "Delantero", 7, "RCL");
 		Sistema.getInstance().agregarJugadorAEquipoYSistema("Quiroga", "Pedro", "10000028", LocalDate.of(1998, 11, 19), 1.79f, 76.5f, "Delantero", 19, "RCL");
+	}
+	
+	public static void agregarResultadosPartidos(long lIdTorneo) throws Exception {
+		
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 1, "10000007", 1, 0, 40);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 5, "10000017", 1, 0, 70);
 	}
 }
