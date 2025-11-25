@@ -71,17 +71,9 @@ public class Equipo {
 		return "Equipo [lId=" + lId + ", sNombre=" + sNombre + ", sCodigoUnico=" + sCodigoUnico + ", ldFechaFundacion="
 				+ ldFechaFundacion + ", oEntrenador=" + oEntrenador + "]";
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Equipo other = (Equipo) obj;
-		return Objects.equals(sCodigoUnico, other.sCodigoUnico);
+	
+	public boolean equals(Equipo equipo) {
+		return sCodigoUnico.equals(equipo.getsCodigoUnico());
 	}
 
 	public boolean agregarJugador(Jugador oJugador) throws Exception {

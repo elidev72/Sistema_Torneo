@@ -70,18 +70,9 @@ public class EstadisticaPartidoJugador {
 	public int hashCode() {
 		return Objects.hash(oJugador);
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EstadisticaPartidoJugador other = (EstadisticaPartidoJugador) obj;
-		return Objects.equals(oJugador, other.oJugador);
-	}
 	
+	public boolean equals(EstadisticaPartidoJugador estadisticaPartidoJugador) {
+		return lId == estadisticaPartidoJugador.getlId() && oJugador.equals(estadisticaPartidoJugador.getoJugador());
+	}
 	
 }

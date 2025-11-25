@@ -74,17 +74,9 @@ public abstract class Persona {
 		return "[lId=" + lId + ", sApellido=" + sApellido + ", sNombre=" + sNombre + ", sDNI=" + sDNI
 				+ ", dtFechaDeNacimiento=" + ldFechaDeNacimiento;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Persona other = (Persona) obj;
-		return Objects.equals(sDNI, other.sDNI);
+	
+	public boolean equals(Persona persona) {
+		return sDNI.equals(persona.getsDNI());
 	}
 	
 }
