@@ -3,76 +3,85 @@ package model;
 import java.util.Objects;
 
 public class EstadisticaPartidoJugador {
-	private static long lNextId = 1;
+	private static long nextId = 1;
 	
-	private final long lId;
-	private Jugador oJugador;
-	private int iGoles;
-	private int iAsistencias;
-	private int iMinutosJugados;
+	private final long id;
+	private Jugador jugador;
+	private int goles;
+	private int asistencias;
+	private int minutosJugados;
 	
-	public EstadisticaPartidoJugador(Jugador oJugador, int iGoles, int iAsistencias, int iMinutosJugados) {
+	public EstadisticaPartidoJugador(Jugador jugador, int goles, int asistencias, int minutosJugados) {
 		super();
-		this.lId = EstadisticaPartidoJugador.lNextId++;
-		this.oJugador = oJugador;
-		this.iGoles = iGoles;
-		this.iAsistencias = iAsistencias;
-		this.iMinutosJugados = iMinutosJugados;
+		this.id = EstadisticaPartidoJugador.nextId++;
+		this.jugador = jugador;
+		this.goles = goles;
+		this.asistencias = asistencias;
+		this.minutosJugados = minutosJugados;
 	}
 
-	public Jugador getoJugador() {
-		return oJugador;
+	public Jugador getJugador() {
+		return jugador;
 	}
 
-	public void setoJugador(Jugador oJugador) {
-		this.oJugador = oJugador;
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
 	}
 
-	public int getiGoles() {
-		return iGoles;
+	public int getGoles() {
+		return goles;
 	}
 
-	public void setiGoles(int iGoles) {
-		this.iGoles = iGoles;
+	public void setGoles(int goles) {
+		this.goles = goles;
 	}
 
-	public int getiAsistencias() {
-		return iAsistencias;
+	public int getAsistencias() {
+		return asistencias;
 	}
 
-	public void setiAsistencias(int iAsistencias) {
-		this.iAsistencias = iAsistencias;
+	public void setAsistencias(int asistencias) {
+		this.asistencias = asistencias;
 	}
 
-	public int getiMinutosJugados() {
-		return iMinutosJugados;
+	public int getMinutosJugados() {
+		return minutosJugados;
 	}
 
-	public void setiMinutosJugados(int iMinutosJugados) {
-		this.iMinutosJugados = iMinutosJugados;
+	public void setMinutosJugados(int minutosJugados) {
+		this.minutosJugados = minutosJugados;
 	}
 
-	public static long getlNextId() {
-		return lNextId;
+	public static long getNextId() {
+		return nextId;
 	}
 
-	public long getlId() {
-		return lId;
+	public long getId() {
+		return id;
 	}
 
 	@Override
 	public String toString() {
-		return "EstadisticaPartidoJugador [lId=" + lId + ", oJugador=" + oJugador + ", iGoles=" + iGoles
-				+ ", iAsistencias=" + iAsistencias + ", iMinutosJugados=" + iMinutosJugados + "]";
+		return "EstadisticaPartidoJugador [id=" + id + ", jugador=" + jugador + ", goles=" + goles
+				+ ", asistencias=" + asistencias + ", minutosJugados=" + minutosJugados + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(oJugador);
+		return Objects.hash(jugador);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EstadisticaPartidoJugador other = (EstadisticaPartidoJugador) obj;
+		return Objects.equals(jugador, other.jugador);
 	}
 	
-	public boolean equals(EstadisticaPartidoJugador estadisticaPartidoJugador) {
-		return lId == estadisticaPartidoJugador.getlId() && oJugador.equals(estadisticaPartidoJugador.getoJugador());
-	}
 	
 }

@@ -19,22 +19,22 @@ public class TestAgregarDatos {
 		Sistema.getInstance().agregarEntrenadorASistema("Rojas", "Daniel", "43445566", LocalDate.of(1988, 12, 1), "Contragolpe");
 	}
 	
-	public static void agregarEquipos(long lIdTorneo) throws Exception {
-		Sistema.getInstance().agregarEquipoATorneoYSistema("Águilas Plateadas", "APL", LocalDate.of(2000, 2, 7), Sistema.getInstance().traerEntrenadorPorsDNI("40112233"), lIdTorneo);
-		Sistema.getInstance().agregarEquipoATorneoYSistema("Tigres del Norte", "TDN", LocalDate.of(2014, 9, 29), Sistema.getInstance().traerEntrenadorPorsDNI("42334455"), lIdTorneo);
-		Sistema.getInstance().agregarEquipoATorneoYSistema("Estrella Polar", "EPL", LocalDate.of(2009, 9, 12), Sistema.getInstance().traerEntrenadorPorsDNI("43445566"), lIdTorneo);
-		Sistema.getInstance().agregarEquipoATorneoYSistema("Rayo Celeste", "RCL", LocalDate.of(2015, 4, 30), Sistema.getInstance().traerEntrenadorPorsDNI("41223344"), lIdTorneo);
+	public static void agregarEquipos(long idTorneo) throws Exception {
+		Sistema.getInstance().agregarEquipoATorneoYSistema("Águilas Plateadas", "APL", LocalDate.of(2000, 2, 7), Sistema.getInstance().traerEntrenadorPorDni("40112233"), idTorneo);
+		Sistema.getInstance().agregarEquipoATorneoYSistema("Tigres del Norte", "TDN", LocalDate.of(2014, 9, 29), Sistema.getInstance().traerEntrenadorPorDni("42334455"), idTorneo);
+		Sistema.getInstance().agregarEquipoATorneoYSistema("Estrella Polar", "EPL", LocalDate.of(2009, 9, 12), Sistema.getInstance().traerEntrenadorPorDni("43445566"), idTorneo);
+		Sistema.getInstance().agregarEquipoATorneoYSistema("Rayo Celeste", "RCL", LocalDate.of(2015, 4, 30), Sistema.getInstance().traerEntrenadorPorDni("41223344"), idTorneo);
 	}
 	
-	public static void agregarPartidoSinJugar(long lIdTorneo) throws Exception {
-		Sistema.getInstance().agregarPartidoEnTorneo(lIdTorneo, LocalDateTime.of(LocalDate.of(2025, 9, 7), LocalTime.of(17, 00)), "Estadio Sur", Sistema.getInstance().traerEquipoPorCodigoUnico("APL"), Sistema.getInstance().traerEquipoPorCodigoUnico("RCL"));
-		Sistema.getInstance().agregarPartidoEnTorneo(lIdTorneo, LocalDateTime.of(LocalDate.of(2025, 9, 18), LocalTime.of(17, 00)), "Estadio Central", Sistema.getInstance().traerEquipoPorCodigoUnico("TDN"), Sistema.getInstance().traerEquipoPorCodigoUnico("EPL"));
+	public static void agregarPartidoSinJugar(long idTorneo) throws Exception {
+		Sistema.getInstance().agregarPartidoEnTorneo(idTorneo, LocalDateTime.of(LocalDate.of(2025, 9, 7), LocalTime.of(17, 00)), "Estadio Sur", Sistema.getInstance().traerEquipoPorCodigoUnico("APL"), Sistema.getInstance().traerEquipoPorCodigoUnico("RCL"));
+		Sistema.getInstance().agregarPartidoEnTorneo(idTorneo, LocalDateTime.of(LocalDate.of(2025, 9, 18), LocalTime.of(17, 00)), "Estadio Central", Sistema.getInstance().traerEquipoPorCodigoUnico("TDN"), Sistema.getInstance().traerEquipoPorCodigoUnico("EPL"));
 	
-		Sistema.getInstance().agregarPartidoEnTorneo(lIdTorneo, LocalDateTime.of(LocalDate.of(2025, 10, 14), LocalTime.of(17, 00)), "Estadio Sur", Sistema.getInstance().traerEquipoPorCodigoUnico("EPL"), Sistema.getInstance().traerEquipoPorCodigoUnico("RCL"));
-		Sistema.getInstance().agregarPartidoEnTorneo(lIdTorneo, LocalDateTime.of(LocalDate.of(2025, 10, 19), LocalTime.of(17, 00)), "Estadio Norte", Sistema.getInstance().traerEquipoPorCodigoUnico("TDN"), Sistema.getInstance().traerEquipoPorCodigoUnico("APL"));
+		Sistema.getInstance().agregarPartidoEnTorneo(idTorneo, LocalDateTime.of(LocalDate.of(2025, 10, 14), LocalTime.of(17, 00)), "Estadio Sur", Sistema.getInstance().traerEquipoPorCodigoUnico("EPL"), Sistema.getInstance().traerEquipoPorCodigoUnico("RCL"));
+		Sistema.getInstance().agregarPartidoEnTorneo(idTorneo, LocalDateTime.of(LocalDate.of(2025, 10, 19), LocalTime.of(17, 00)), "Estadio Norte", Sistema.getInstance().traerEquipoPorCodigoUnico("TDN"), Sistema.getInstance().traerEquipoPorCodigoUnico("APL"));
 	
-		Sistema.getInstance().agregarPartidoEnTorneo(lIdTorneo, LocalDateTime.of(LocalDate.of(2025, 11, 11), LocalTime.of(17, 00)), "Estadio Norte", Sistema.getInstance().traerEquipoPorCodigoUnico("APL"), Sistema.getInstance().traerEquipoPorCodigoUnico("EPL"));
-		Sistema.getInstance().agregarPartidoEnTorneo(lIdTorneo, LocalDateTime.of(LocalDate.of(2025, 11, 11), LocalTime.of(17, 00)), "Estadio Central", Sistema.getInstance().traerEquipoPorCodigoUnico("RCL"), Sistema.getInstance().traerEquipoPorCodigoUnico("TDN"));
+		Sistema.getInstance().agregarPartidoEnTorneo(idTorneo, LocalDateTime.of(LocalDate.of(2025, 11, 11), LocalTime.of(17, 00)), "Estadio Norte", Sistema.getInstance().traerEquipoPorCodigoUnico("APL"), Sistema.getInstance().traerEquipoPorCodigoUnico("EPL"));
+		Sistema.getInstance().agregarPartidoEnTorneo(idTorneo, LocalDateTime.of(LocalDate.of(2025, 11, 11), LocalTime.of(17, 00)), "Estadio Central", Sistema.getInstance().traerEquipoPorCodigoUnico("RCL"), Sistema.getInstance().traerEquipoPorCodigoUnico("TDN"));
 	}
 	
 	public static void agregarJugadoresEnEquipos() throws Exception {
@@ -83,29 +83,29 @@ public class TestAgregarDatos {
 		Sistema.getInstance().agregarJugadorAEquipoYSistema("Quiroga", "Pedro", "10000028", LocalDate.of(1998, 11, 19), 1.79f, 76.5f, "Delantero", 19, "RCL");
 	}
 	
-	public static void agregarResultadosPartidos(long lIdTorneo) throws Exception {
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 1, "10000004", 1, 2, 90);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 1, "10000005", 1, 1, 90);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 1, "10000007", 1, 0, 40);
+	public static void agregarResultadosPartidos(long idTorneo) throws Exception {
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 1, "10000004", 1, 2, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 1, "10000005", 1, 1, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 1, "10000007", 1, 0, 40);
 		
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 2, "10000011", 0, 1, 90);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 2, "10000014", 1, 0, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 2, "10000011", 0, 1, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 2, "10000014", 1, 0, 90);
 		
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 3, "10000017", 0, 0, 20);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 3, "10000017", 0, 0, 20);
 		
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 4, "10000004", 0, 1, 20);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 4, "10000005", 0, 1, 90);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 4, "10000007", 2, 0, 90);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 4, "10000011", 0, 1, 90);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 4, "10000014", 1, 0, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 4, "10000004", 0, 1, 20);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 4, "10000005", 0, 1, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 4, "10000007", 2, 0, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 4, "10000011", 0, 1, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 4, "10000014", 1, 0, 90);
 		
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 5, "10000017", 1, 0, 70);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 5, "10000005", 0, 1, 90);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 5, "10000006", 1, 0, 23);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 5, "10000017", 1, 0, 70);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 5, "10000005", 0, 1, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 5, "10000006", 1, 0, 23);
 		
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 6, "10000025", 0, 1, 20);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 6, "10000028", 2, 0, 90);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 6, "10000014", 0, 1, 90);
-		Sistema.getInstance().agregarEstadisticaPartidoTorneo(lIdTorneo, 6, "10000013", 1, 0, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 6, "10000025", 0, 1, 20);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 6, "10000028", 2, 0, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 6, "10000014", 0, 1, 90);
+		Sistema.getInstance().agregarEstadisticaPartidoTorneo(idTorneo, 6, "10000013", 1, 0, 90);
 	}
 }

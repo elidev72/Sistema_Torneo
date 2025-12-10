@@ -5,78 +5,86 @@ import java.time.Period;
 import java.util.Objects;
 
 public abstract class Persona {
-	private static long lNextId = 1;
+	private static long nextId = 1;
 	
-	private final long lId;
-	private String sApellido;
-	private String sNombre;
-	private String sDNI;
-	private LocalDate ldFechaDeNacimiento;	
+	private final long id;
+	private String apellido;
+	private String nombre;
+	private String dni;
+	private LocalDate fechaDeNacimiento;	
 
-	public Persona(String sApellido, String sNombre, String sDNI, LocalDate ldFechaDeNacimiento) throws Exception {
+	public Persona(String apellido, String nombre, String dni, LocalDate fechaDeNacimiento) throws Exception {
 		super();
-		this.lId = Persona.lNextId++;
-		this.sApellido = sApellido;
-		this.sNombre = sNombre;
-		this.sDNI = sDNI;
-		this.setLtFechaDeNacimiento(ldFechaDeNacimiento);
+		this.id = Persona.nextId++;
+		this.apellido = apellido;
+		this.nombre = nombre;
+		this.dni = dni;
+		this.setFechaDeNacimiento(fechaDeNacimiento);
 	}
 
-	public String getsApellido() {
-		return sApellido;
+	public String getApellido() {
+		return apellido;
 	}
 
-	public void setsApellido(String sApellido) {
-		this.sApellido = sApellido;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
-	public String getsNombre() {
-		return sNombre;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setsNombre(String sNombre) {
-		this.sNombre = sNombre;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getsDNI() {
-		return sDNI;
+	public String getDni() {
+		return dni;
 	}
 
-	public void setsDNI(String sDNI) {
-		this.sDNI = sDNI;
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
-	public LocalDate getLtFechaDeNacimiento() {
-		return ldFechaDeNacimiento;
+	public LocalDate getFechaDeNacimiento() {
+		return fechaDeNacimiento;
 	}
 
-	public void setLtFechaDeNacimiento(LocalDate ldFechaDeNacimiento) throws Exception {
-		LocalDate ldHoy = LocalDate.now();
+	public void setFechaDeNacimiento(LocalDate fechaDeNacimiento) throws Exception {
+		LocalDate hoy = LocalDate.now();
 		
-		Period periodo = Period.between(ldFechaDeNacimiento, ldHoy);
+		Period periodo = Period.between(fechaDeNacimiento, hoy);
 	    
 	    if (periodo.getYears() < 18)
 	        throw new Exception("ERROR: La persona debe tener al menos 18 años.");
 		
-		this.ldFechaDeNacimiento = ldFechaDeNacimiento;
+		this.fechaDeNacimiento = fechaDeNacimiento;
 	}
 
-	public long getlId() {
-		return lId;
+	public long getId() {
+		return id;
 	}
 
-	public static long getlNextId() {
-		return lNextId;
+	public static long getNextId() {
+		return nextId;
 	}
 
 	@Override
 	public String toString() {
-		return "[lId=" + lId + ", sApellido=" + sApellido + ", sNombre=" + sNombre + ", sDNI=" + sDNI
-				+ ", dtFechaDeNacimiento=" + ldFechaDeNacimiento;
+		return "[id=" + id + ", apellido=" + apellido + ", nombre=" + nombre + ", dni=" + dni
+				+ ", dtFechaDeNacimiento=" + fechaDeNacimiento;
 	}
-	
-	public boolean equals(Persona persona) {
-		return sDNI.equals(persona.getsDNI());
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Persona other = (Persona) obj;
+		return Objects.equals(dni, other.dni);
 	}
 	
 }

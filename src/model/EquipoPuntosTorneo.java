@@ -1,21 +1,21 @@
 package model;
 
 public class EquipoPuntosTorneo {
-	private Equipo oEquipo;
-	private int iPuntos;
+	private Equipo equipo;
+	private int puntos;
 	
-	public EquipoPuntosTorneo(Equipo oEquipo, int iPuntos) {
+	public EquipoPuntosTorneo(Equipo equipo, int puntos) {
 		super();
-		this.oEquipo = oEquipo;
-		this.iPuntos = iPuntos;
+		this.equipo = equipo;
+		this.puntos = puntos;
 	}
 
-	public Equipo getoEquipo() {
-		return oEquipo;
+	public Equipo getEquipo() {
+		return equipo;
 	}
 
-	public int getiPuntos() {
-		return iPuntos;
+	public int getPuntos() {
+		return puntos;
 	}
 	
 }

@@ -3,56 +3,56 @@ package model;
 import java.time.LocalDate;
 
 public class Jugador extends Persona {
-	private float fEstatura;
-	private float fPeso;
-	private String sPosición;
-	private int iNumeroDeCamiseta;
+	private float estatura;
+	private float peso;
+	private String posicion;
+	private int numeroDeCamiseta;
 	
-	public Jugador(String sApellido, String sNombre, String sDNI, LocalDate ldFechaDeNacimiento, float fEstatura,
-			float fPeso, String sPosición, int iNumeroDeCamiseta) throws Exception {
-		super(sApellido, sNombre, sDNI, ldFechaDeNacimiento);
-		this.fEstatura = fEstatura;
-		this.fPeso = fPeso;
-		this.sPosición = sPosición;
-		this.iNumeroDeCamiseta = iNumeroDeCamiseta;
+	public Jugador(String apellido, String nombre, String dni, LocalDate fechaDeNacimiento, float estatura,
+			float peso, String posicion, int numeroDeCamiseta) throws Exception {
+		super(apellido, nombre, dni, fechaDeNacimiento);
+		this.estatura = estatura;
+		this.peso = peso;
+		this.posicion = posicion;
+		this.numeroDeCamiseta = numeroDeCamiseta;
 	}
 
-	public float getfEstatura() {
-		return fEstatura;
+	public float getEstatura() {
+		return estatura;
 	}
 
-	public void setfEstatura(float fEstatura) {
-		this.fEstatura = fEstatura;
+	public void setEstatura(float estatura) {
+		this.estatura = estatura;
 	}
 
-	public float getfPeso() {
-		return fPeso;
+	public float getPeso() {
+		return peso;
 	}
 
-	public void setfPeso(float fPeso) {
-		this.fPeso = fPeso;
+	public void setPeso(float peso) {
+		this.peso = peso;
 	}
 
-	public String getsPosición() {
-		return sPosición;
+	public String getPosicion() {
+		return posicion;
 	}
 
-	public void setsPosición(String sPosición) {
-		this.sPosición = sPosición;
+	public void setPosicion(String posicion) {
+		this.posicion = posicion;
 	}
 
-	public int getiNumeroDeCamiseta() {
-		return iNumeroDeCamiseta;
+	public int getNumeroDeCamiseta() {
+		return numeroDeCamiseta;
 	}
 
-	public void setiNumeroDeCamiseta(int iNumeroDeCamiseta) {
-		this.iNumeroDeCamiseta = iNumeroDeCamiseta;
+	public void setNumeroDeCamiseta(int numeroDeCamiseta) {
+		this.numeroDeCamiseta = numeroDeCamiseta;
 	}
 
 	@Override
 	public String toString() {
-		return "Jugador " + super.toString() + ", fEstatura=" + fEstatura + ", fPeso=" + fPeso + ", sPosición=" + sPosición
-				+ ", iNumeroDeCamiseta=" + iNumeroDeCamiseta + "]";
+		return "Jugador " + super.toString() + ", estatura=" + estatura + ", peso=" + peso + ", posicion=" + posicion
+				+ ", numeroDeCamiseta=" + numeroDeCamiseta + "]";
 	}	
 	
 }
