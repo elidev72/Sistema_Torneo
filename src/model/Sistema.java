@@ -46,14 +46,14 @@ public class Sistema {
 		return this.ltsTorneos.add(torneo);
 	}
 	
-	public boolean agregarEquipoATorneoYSistema(String nombre, String codigoUnico, LocalDate fechaFundacion, Entrenador entrenador, long idTorneo) throws Exception {
+	public boolean agregarEquipoATorneoYSistema(String nombre, LocalDate fechaFundacion, Entrenador entrenador, long idTorneo) throws Exception {
 		Torneo torneo = this.traerTorneoPorId(idTorneo);
 		
 		if(torneo == null)
 			throw new Exception("No existe el torneo de id: " + idTorneo);
 		
-		Equipo equipo = new Equipo(nombre, codigoUnico, fechaFundacion, entrenador);
-		
+		Equipo equipo = new Equipo(nombre, fechaFundacion, entrenador);
+
 		if(!this.getLtsEquipos().contains(equipo))
 			this.ltsEquipos.add(equipo);
 		
@@ -126,7 +126,7 @@ public class Sistema {
 		while(aux == null && i < tam) {
 			temp = this.getLtsEquipos().get(i);
 			
-			if(temp.getsCodigoUnico().equalsIgnoreCase(codigoUnico))
+			if(temp.getCodigoUnico().equalsIgnoreCase(codigoUnico))
 				aux = temp;
 			
 			i++;

@@ -15,11 +15,11 @@ public class Equipo {
 	private Entrenador entrenador;
 	private List<Jugador> ltsJugadores = new ArrayList<Jugador>();
 	
-	public Equipo(String nombre, String codigoUnico, LocalDate fechaFundacion, Entrenador entrenador) throws Exception {
+	public Equipo(String nombre, LocalDate fechaFundacion, Entrenador entrenador) throws Exception {
 		super();
 		this.id = Equipo.nextId++;
 		this.nombre = nombre;
-		this.setCodigoUnico(codigoUnico);
+		this.setCodigoUnico(nombre);
 		this.fechaFundacion = fechaFundacion;
 		this.entrenador = entrenador;
 	}
@@ -39,7 +39,7 @@ public class Equipo {
 	public String getCodigoUnico() {
 		return codigoUnico;
 	}
-
+    /*
 	public void setCodigoUnico(String codigoUnico) throws Exception {
 		if (codigoUnico == null || codigoUnico.isEmpty())
 	        throw new Exception("ERROR: El código único no puede ser nulo o vacío.");
@@ -49,6 +49,22 @@ public class Equipo {
 		
 		this.codigoUnico = codigoUnico;
 	}
+    */
+
+    public void setCodigoUnico(String nombre) {
+
+        if (nombre != null && nombre.length() >= 3) {
+            // Toma las primeras 3 letras del nombre
+            this.codigoUnico = nombre.substring(0, 3).toUpperCase();
+        } else if (nombre != null && nombre.length() < 3) {
+            // Si el nombre tiene menos de 3 letras, usamos todo el nombre
+            this.codigoUnico = nombre.toUpperCase();
+        } else {
+            // Si el nombre es nulo, puedes lanzar una excepción o asignar un valor por
+            // defecto
+            this.codigoUnico = "no tiene nombre"; // Valor por defecto, puedes cambiarlo según convenga
+        }
+    }
 
 	public Entrenador getEntrenador() {
 		return entrenador;
