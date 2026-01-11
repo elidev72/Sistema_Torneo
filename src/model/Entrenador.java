@@ -3,25 +3,25 @@ package model;
 import java.time.LocalDate;
 
 public class Entrenador extends Persona {
-	private String sEstrategiaFavorita;
+	private String estrategiaFavorita;
 
-	public Entrenador(String sApellido, String sNombre, String sDNI, LocalDate ldFechaDeNacimiento,
-			String sEstrategiaFavorita) throws Exception {
-		super(sApellido, sNombre, sDNI, ldFechaDeNacimiento);
-		this.sEstrategiaFavorita = sEstrategiaFavorita;
+	public Entrenador(String apellido, String nombre, String dni, LocalDate fechaDeNacimiento,
+			String estrategiaFavorita) throws Exception {
+		super(apellido, nombre, dni, fechaDeNacimiento);
+		this.estrategiaFavorita = estrategiaFavorita;
 	}
 
-	public String getsEstrategiaFavorita() {
-		return sEstrategiaFavorita;
+	public String getEstrategiaFavorita() {
+		return estrategiaFavorita;
 	}
 
-	public void setsEstrategiaFavorita(String sEstrategiaFavorita) {
-		this.sEstrategiaFavorita = sEstrategiaFavorita;
+	public void setEstrategiaFavorita(String estrategiaFavorita) {
+		this.estrategiaFavorita = estrategiaFavorita;
 	}
 
 	@Override
 	public String toString() {
-		return "Entrenador " + super.toString() + ", sEstrategiaFavorita=" + sEstrategiaFavorita + "]";
+		return "Entrenador " + super.toString() + ", estrategiaFavorita=" + estrategiaFavorita + "]";
 	}
 	
 	

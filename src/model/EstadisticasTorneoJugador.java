@@ -1,42 +1,42 @@
 package model;
 
 public class EstadisticasTorneoJugador {
-	private Jugador oJugador;
-    private int iTotalGoles = 0;
-    private int iTotalAsistencias = 0;
-    private int iTotalMinutosJugados = 0;
+	private Jugador jugador;
+    private int totalGoles = 0;
+    private int totalAsistencias = 0;
+    private int totalMinutosJugados = 0;
     
-	public EstadisticasTorneoJugador(Jugador oJugador) {
+	public EstadisticasTorneoJugador(Jugador jugador) {
 		super();
-		this.oJugador = oJugador;
+		this.jugador = jugador;
 	}
 
-	public Jugador getoJugador() {
-		return oJugador;
+	public Jugador getJugador() {
+		return jugador;
 	}
 
-	public int getiTotalGoles() {
-		return iTotalGoles;
+	public int getTotalGoles() {
+		return totalGoles;
 	}
 
-	public int getiTotalAsistencias() {
-		return iTotalAsistencias;
+	public int getTotalAsistencias() {
+		return totalAsistencias;
 	}
 
-	public int getiTotalMinutosJugados() {
-		return iTotalMinutosJugados;
+	public int getTotalMinutosJugados() {
+		return totalMinutosJugados;
 	}
     
 	public void sumarEstadisticaPartido(int goles, int asistencias, int minutos) {
-        this.iTotalGoles += goles;
-        this.iTotalAsistencias += asistencias;
-        this.iTotalMinutosJugados += minutos; 
+        this.totalGoles += goles;
+        this.totalAsistencias += asistencias;
+        this.totalMinutosJugados += minutos; 
     }
 
 	@Override
 	public String toString() {
-		return "EstadisticasTorneoJugador [oJugador=" + oJugador.getsApellido() + " " + oJugador.getsNombre() + ", iTotalGoles=" + iTotalGoles
-				+ ", iTotalAsistencias=" + iTotalAsistencias + ", iTotalMinutosJugados=" + iTotalMinutosJugados + "]";
+		return "EstadisticasTorneoJugador [jugador=" + jugador.getApellido() + " " + jugador.getNombre() + ", totalGoles=" + totalGoles
+				+ ", totalAsistencias=" + totalAsistencias + ", totalMinutosJugados=" + totalMinutosJugados + "]";
 	}
 	
 }

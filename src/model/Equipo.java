@@ -6,70 +6,86 @@ import java.util.List;
 import java.util.Objects;
 
 public class Equipo {
-	private static long lNextId = 1;
+	private static long nextId = 1;
 	
-	private final long lId;
-	private String sNombre;
-	private String sCodigoUnico;
-	private LocalDate ldFechaFundacion;
-	private Entrenador oEntrenador;
+	private final long id;
+	private String nombre;
+	private String codigoUnico;
+	private LocalDate fechaFundacion;
+	private Entrenador entrenador;
 	private List<Jugador> ltsJugadores = new ArrayList<Jugador>();
 	
-	public Equipo(String sNombre, String sCodigoUnico, LocalDate ldFechaFundacion, Entrenador oEntrenador) throws Exception {
+	public Equipo(String nombre, LocalDate fechaFundacion, Entrenador entrenador) throws Exception {
 		super();
-		this.lId = Equipo.lNextId++;
-		this.sNombre = sNombre;
-		this.setsCodigoUnico(sCodigoUnico);
-		this.ldFechaFundacion = ldFechaFundacion;
-		this.oEntrenador = oEntrenador;
+		this.id = Equipo.nextId++;
+		this.nombre = nombre;
+		this.setCodigoUnico(nombre);
+		this.fechaFundacion = fechaFundacion;
+		this.entrenador = entrenador;
 	}
 
-	public static long getlNextId() {
-		return lNextId;
+	public static long getNextId() {
+		return nextId;
 	}
 
-	public String getsNombre() {
-		return sNombre;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setsNombre(String sNombre) {
-		this.sNombre = sNombre;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getsCodigoUnico() {
-		return sCodigoUnico;
+	public String getCodigoUnico() {
+		return codigoUnico;
 	}
-
-	public void setsCodigoUnico(String sCodigoUnico) throws Exception {
-		if (sCodigoUnico == null || sCodigoUnico.isEmpty())
+    /*
+	public void setCodigoUnico(String codigoUnico) throws Exception {
+		if (codigoUnico == null || codigoUnico.isEmpty())
 	        throw new Exception("ERROR: El código único no puede ser nulo o vacío.");
 		
-		if(sCodigoUnico.length() != 3)
+		if(codigoUnico.length() != 3)
 			throw new Exception("ERROR: el codigo debe tener un largo de 3 caracteres.");
 		
-		this.sCodigoUnico = sCodigoUnico;
+		this.codigoUnico = codigoUnico;
+	}
+    */
+
+    public void setCodigoUnico(String nombre) {
+
+        if (nombre != null && nombre.length() >= 3) {
+            // Toma las primeras 3 letras del nombre
+            this.codigoUnico = nombre.substring(0, 3).toUpperCase();
+        } else if (nombre != null && nombre.length() < 3) {
+            // Si el nombre tiene menos de 3 letras, usamos todo el nombre
+            this.codigoUnico = nombre.toUpperCase();
+        } else {
+            // Si el nombre es nulo, puedes lanzar una excepción o asignar un valor por
+            // defecto
+            this.codigoUnico = "no tiene nombre"; // Valor por defecto, puedes cambiarlo según convenga
+        }
+    }
+
+	public Entrenador getEntrenador() {
+		return entrenador;
 	}
 
-	public Entrenador getoEntrenador() {
-		return oEntrenador;
-	}
-
-	public void setoEntrenador(Entrenador oEntrenador) {
-		this.oEntrenador = oEntrenador;
+	public void setEntrenador(Entrenador entrenador) {
+		this.entrenador = entrenador;
 	}
 
 	public List<Jugador> getLtsJugadores() {
 		return List.copyOf(ltsJugadores);
 	}
 
-	public long getlId() {
-		return lId;
+	public long getId() {
+		return id;
 	}
 
 	@Override
 	public String toString() {
-		return "Equipo [lId=" + lId + ", sNombre=" + sNombre + ", sCodigoUnico=" + sCodigoUnico + ", ldFechaFundacion="
-				+ ldFechaFundacion + ", oEntrenador=" + oEntrenador + "]";
+		return "Equipo [id=" + id + ", nombre=" + nombre + ", codigoUnico=" + codigoUnico + ", fechaFundacion="
+				+ fechaFundacion + ", entrenador=" + entrenador + "]";
 	}
 
 	@Override
@@ -81,31 +97,31 @@ public class Equipo {
 		if (getClass() != obj.getClass())
 			return false;
 		Equipo other = (Equipo) obj;
-		return Objects.equals(sCodigoUnico, other.sCodigoUnico);
+		return Objects.equals(codigoUnico, other.codigoUnico);
 	}
 
-	public boolean agregarJugador(Jugador oJugador) throws Exception {
-		if(this.getLtsJugadores().contains(oJugador))
+	public boolean agregarJugador(Jugador jugador) throws Exception {
+		if(this.getLtsJugadores().contains(jugador))
 			throw new Exception("ERROR: El equipo ya contiene al jugador.");
 		
-		return this.ltsJugadores.add(oJugador);
+		return this.ltsJugadores.add(jugador);
 	}
 	
 	public float promedioDeAltura() {
-		float fPromedio = 0;
+		float promedio = 0;
 		List<Jugador> lstJugador = this.getLtsJugadores();
 		
 		for(Jugador j: lstJugador)
-			fPromedio += j.getfEstatura();
+			promedio += j.getEstatura();
 		
-		return lstJugador.isEmpty() ? 0f : fPromedio / lstJugador.size();
+		return lstJugador.isEmpty() ? 0f : promedio / lstJugador.size();
 	}
 
-	public LocalDate getLdFechaFundacion() {
-		return ldFechaFundacion;
+	public LocalDate getFechaFundacion() {
+		return fechaFundacion;
 	}
 
-	public void setLdFechaFundacion(LocalDate ldFechaFundacion) {
-		this.ldFechaFundacion = ldFechaFundacion;
+	public void setFechaFundacion(LocalDate fechaFundacion) {
+		this.fechaFundacion = fechaFundacion;
 	}
 }

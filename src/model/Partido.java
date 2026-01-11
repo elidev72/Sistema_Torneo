@@ -6,84 +6,84 @@ import java.util.List;
 import java.util.Objects;
 
 public class Partido {
-	private static long lNextId = 1;
+	private static long nextId = 1;
 	
-	private final long lId;
-	private LocalDateTime ldtFecha;
-	private String sEstadio;
-	private Equipo oEquipoLocal;
-	private Equipo oEquipoVisitante;
+	private final long id;
+	private LocalDateTime fecha;
+	private String estadio;
+	private Equipo equipoLocal;
+	private Equipo equipoVisitante;
 	private List<EstadisticaPartidoJugador> ltsEstadisticasJugadores = new ArrayList<EstadisticaPartidoJugador>();
 	
-	public Partido(LocalDateTime ldtFecha, String sEstadio, Equipo oEquipoLocal, Equipo oEquipoVisitante) {
+	public Partido(LocalDateTime fecha, String estadio, Equipo equipoLocal, Equipo equipoVisitante) {
 		super();
-		this.lId = Partido.lNextId++;
-		this.ldtFecha = ldtFecha;
-		this.sEstadio = sEstadio;
-		this.oEquipoLocal = oEquipoLocal;
-		this.oEquipoVisitante = oEquipoVisitante;
+		this.id = Partido.nextId++;
+		this.fecha = fecha;
+		this.estadio = estadio;
+		this.equipoLocal = equipoLocal;
+		this.equipoVisitante = equipoVisitante;
 	}
 
-	public static long getlNextId() {
-		return lNextId;
+	public static long getNextId() {
+		return nextId;
 	}
-	public LocalDateTime getLdtFecha() {
-		return ldtFecha;
-	}
-
-	public void setLdtFecha(LocalDateTime ldtFecha) {
-		this.ldtFecha = ldtFecha;
+	public LocalDateTime getFecha() {
+		return fecha;
 	}
 
-	public String getsEstadio() {
-		return sEstadio;
+	public void setFecha(LocalDateTime fecha) {
+		this.fecha = fecha;
 	}
 
-	public void setsEstadio(String sEstadio) {
-		this.sEstadio = sEstadio;
+	public String getEstadio() {
+		return estadio;
 	}
 
-	public Equipo getoEquipoLocal() {
-		return oEquipoLocal;
+	public void setEstadio(String estadio) {
+		this.estadio = estadio;
 	}
 
-	public void setoEquipoLocal(Equipo oEquipoLocal) {
-		this.oEquipoLocal = oEquipoLocal;
+	public Equipo getEquipoLocal() {
+		return equipoLocal;
 	}
 
-	public Equipo getoEquipoVisitante() {
-		return oEquipoVisitante;
+	public void setEquipoLocal(Equipo equipoLocal) {
+		this.equipoLocal = equipoLocal;
 	}
 
-	public void setoEquipoVisitante(Equipo oEquipoVisitante) {
-		this.oEquipoVisitante = oEquipoVisitante;
+	public Equipo getEquipoVisitante() {
+		return equipoVisitante;
+	}
+
+	public void setEquipoVisitante(Equipo equipoVisitante) {
+		this.equipoVisitante = equipoVisitante;
 	}
 
 	public List<EstadisticaPartidoJugador> getLtsEstadisticasJugadores() {
 		return List.copyOf(ltsEstadisticasJugadores);
 	}
 
-	public long getlId() {
-		return lId;
+	public long getId() {
+		return id;
 	}
 
 	@Override
 	public String toString() {
-		String sRetorno = "Partido [lId=" + lId + ", ldtFecha=" + Utils.obtenerFechaFormateada(ldtFecha) + ", sEstadio=" + sEstadio + " | "
-				+ oEquipoLocal.getsNombre();
+		String retorno = "Partido [id=" + id + ", fecha=" + Utils.obtenerFechaFormateada(fecha) + ", estadio=" + estadio + " | "
+				+ equipoLocal.getNombre();
 		
 		if(!this.getLtsEstadisticasJugadores().isEmpty()) {
-			sRetorno += " " + this.calcularGoles(oEquipoLocal) + " - " + this.calcularGoles(oEquipoVisitante) + " " + oEquipoVisitante.getsNombre() + " | Resultado: ";
+			retorno += " " + this.calcularGoles(equipoLocal) + " - " + this.calcularGoles(equipoVisitante) + " " + equipoVisitante.getNombre() + " | Resultado: ";
 			
 			if(this.ganador() != null) {
-				sRetorno += "Ganó " + this.ganador().getsNombre();
+				retorno += "Ganó " + this.ganador().getNombre();
 			} else
-				sRetorno += "Empate";
+				retorno += "Empate";
 			
 		} else
-			sRetorno += " vs " + oEquipoVisitante.getsNombre() + " | Estado: Sin disputar";
+			retorno += " vs " + equipoVisitante.getNombre() + " | Estado: Sin disputar";
 		
-		return sRetorno + "]";
+		return retorno + "]";
 	}
 	
 	@Override
@@ -95,43 +95,43 @@ public class Partido {
 		if (getClass() != obj.getClass())
 			return false;
 		Partido other = (Partido) obj;
-		return Objects.equals(oEquipoLocal, other.oEquipoLocal)
-				&& Objects.equals(oEquipoVisitante, other.oEquipoVisitante);
+		return Objects.equals(equipoLocal, other.equipoLocal)
+				&& Objects.equals(equipoVisitante, other.equipoVisitante);
 	}
 
-	private int calcularGoles(Equipo oEquipo) {
-		int iGoles = 0;
+	private int calcularGoles(Equipo equipo) {
+		int goles = 0;
 		
 		for(EstadisticaPartidoJugador e: this.getLtsEstadisticasJugadores()) {
 			
-			if(oEquipo.getLtsJugadores().contains(e.getoJugador()))
-				iGoles += e.getiGoles();
+			if(equipo.getLtsJugadores().contains(e.getJugador()))
+				goles += e.getGoles();
 			
 		}
 		
-		return iGoles;
+		return goles;
 	}
 	
 	public Equipo ganador() {
-		Equipo oGanador = null;
+		Equipo ganador = null;
 		
-		if(this.calcularGoles(this.getoEquipoLocal()) < this.calcularGoles(getoEquipoVisitante())) {
-			oGanador = this.oEquipoVisitante;
+		if(this.calcularGoles(this.getEquipoLocal()) < this.calcularGoles(getEquipoVisitante())) {
+			ganador = this.equipoVisitante;
 		} 
-		else if(this.calcularGoles(this.getoEquipoLocal()) > this.calcularGoles(getoEquipoVisitante()))
-			oGanador = this.oEquipoLocal;
+		else if(this.calcularGoles(this.getEquipoLocal()) > this.calcularGoles(getEquipoVisitante()))
+			ganador = this.equipoLocal;
 		
-		return oGanador;
+		return ganador;
 	}
 	
-	public boolean agregarEstadisticaPartido(Jugador oJugador, int iGoles, int iAsistencias, int iMinutosJugados) throws Exception {
-		List<Jugador> lst = new ArrayList<>(this.getoEquipoLocal().getLtsJugadores());
-		lst.addAll(this.getoEquipoVisitante().getLtsJugadores());
+	public boolean agregarEstadisticaPartido(Jugador jugador, int goles, int asistencias, int minutosJugados) throws Exception {
+		List<Jugador> lst = new ArrayList<>(this.getEquipoLocal().getLtsJugadores());
+		lst.addAll(this.getEquipoVisitante().getLtsJugadores());
 		
-		if(!lst.contains(oJugador))
+		if(!lst.contains(jugador))
 			throw new Exception("ERROR: Jugador no pertenece a ninguno de los 2 equipos.");
 		
-		EstadisticaPartidoJugador aux = new EstadisticaPartidoJugador(oJugador, iGoles, iAsistencias, iMinutosJugados);
+		EstadisticaPartidoJugador aux = new EstadisticaPartidoJugador(jugador, goles, asistencias, minutosJugados);
 		if(this.getLtsEstadisticasJugadores().contains(aux))
 			throw new Exception("ERROR: Jugador ya tiene estadisticas en el partido.");
 		

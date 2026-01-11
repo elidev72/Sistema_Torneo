@@ -37,236 +37,236 @@ public class Sistema {
 	}
 	
 	// Agregar
-	public boolean agregarTorneoASistema(String sNombre, String sTemporada, LocalDate ldFechaDeInicio, LocalDate ldFechaDeFin) throws Exception {
-		Torneo oTorneo = new Torneo(sNombre, sTemporada, ldFechaDeInicio, ldFechaDeFin);
+	public boolean agregarTorneoASistema(String nombre, String temporada, LocalDate fechaDeInicio, LocalDate fechaDeFin) throws Exception {
+		Torneo torneo = new Torneo(nombre, temporada, fechaDeInicio, fechaDeFin);
 		
-		if(this.getLtsTorneos().contains(oTorneo))
+		if(this.getLtsTorneos().contains(torneo))
 			throw new Exception("ERROR: Torneo ya existe en el Sistema");
 		
-		return this.ltsTorneos.add(oTorneo);
+		return this.ltsTorneos.add(torneo);
 	}
 	
-	public boolean agregarEquipoATorneoYSistema(String sNombre, String sCodigoUnico, LocalDate ldFechaFundacion, Entrenador oEntrenador, long lIdTorneo) throws Exception {
-		Torneo oTorneo = this.traerTorneoPorId(lIdTorneo);
+	public boolean agregarEquipoATorneoYSistema(String nombre, LocalDate fechaFundacion, Entrenador entrenador, long idTorneo) throws Exception {
+		Torneo torneo = this.traerTorneoPorId(idTorneo);
 		
-		if(oTorneo == null)
-			throw new Exception("No existe el torneo de id: " + lIdTorneo);
+		if(torneo == null)
+			throw new Exception("No existe el torneo de id: " + idTorneo);
 		
-		Equipo oEquipo = new Equipo(sNombre, sCodigoUnico, ldFechaFundacion, oEntrenador);
-		
-		if(!this.getLtsEquipos().contains(oEquipo))
-			this.ltsEquipos.add(oEquipo);
-		
-		return oTorneo.agregarEquipo(oEquipo);
-	}
-	
-	public boolean agregarJugadorAEquipoYSistema(String sApellido, String sNombre, String sDNI, LocalDate ldFechaDeNacimiento, float fEstatura,
-			float fPeso, String sPosición, int iNumeroDeCamiseta, String sCodigoEquipo) throws Exception {
-		Equipo oEquipo = this.traerEquipoPorCodigoUnico(sCodigoEquipo);
-		
-		if(oEquipo == null)
-			throw new Exception("No existe el equipo con codigo: " + sCodigoEquipo);
-		
-		Jugador oJugador = new Jugador(sApellido, sNombre, sDNI, ldFechaDeNacimiento, fEstatura, fPeso, sPosición, iNumeroDeCamiseta);
-		
-		if(!this.getLtsJugadores().contains(oJugador))
-			this.ltsJugadores.add(oJugador);
+		Equipo equipo = new Equipo(nombre, fechaFundacion, entrenador);
 
-		return oEquipo.agregarJugador(oJugador);
+		if(!this.getLtsEquipos().contains(equipo))
+			this.ltsEquipos.add(equipo);
+		
+		return torneo.agregarEquipo(equipo);
 	}
 	
-	public boolean agregarEntrenadorASistema(String sApellido, String sNombre, String sDNI, LocalDate ldFechaDeNacimiento, String sEstrategiaFavorita) throws Exception {
-		Entrenador oEntrenador = new Entrenador(sApellido, sNombre, sDNI, ldFechaDeNacimiento, sEstrategiaFavorita);
-		boolean bAgregado = false;
+	public boolean agregarJugadorAEquipoYSistema(String apellido, String nombre, String dni, LocalDate fechaDeNacimiento, float estatura,
+			float peso, String posicion, int numeroDeCamiseta, String codigoEquipo) throws Exception {
+		Equipo equipo = this.traerEquipoPorCodigoUnico(codigoEquipo);
 		
-		if(!this.getLtsEntrenadores().contains(oEntrenador))
-			bAgregado = this.ltsEntrenadores.add(oEntrenador);
+		if(equipo == null)
+			throw new Exception("No existe el equipo con codigo: " + codigoEquipo);
 		
-		return bAgregado;
+		Jugador jugador = new Jugador(apellido, nombre, dni, fechaDeNacimiento, estatura, peso, posicion, numeroDeCamiseta);
+		
+		if(!this.getLtsJugadores().contains(jugador))
+			this.ltsJugadores.add(jugador);
+
+		return equipo.agregarJugador(jugador);
 	}
 	
-	private Torneo existeTorneo(long lIdTorneo) throws Exception {
-		Torneo oTorneo = this.traerTorneoPorId(lIdTorneo);
+	public boolean agregarEntrenadorASistema(String apellido, String nombre, String dni, LocalDate fechaDeNacimiento, String estrategiaFavorita) throws Exception {
+		Entrenador entrenador = new Entrenador(apellido, nombre, dni, fechaDeNacimiento, estrategiaFavorita);
+		boolean agregado = false;
 		
-		if(oTorneo == null)
-			throw new Exception("ERROR: no existe el torneo con id " + lIdTorneo);
+		if(!this.getLtsEntrenadores().contains(entrenador))
+			agregado = this.ltsEntrenadores.add(entrenador);
 		
-		return oTorneo;
+		return agregado;
 	}
 	
-	public boolean agregarPartidoEnTorneo(long lIdTorneo, LocalDateTime ldtFecha, String sEstadio, Equipo oEquipoLocal, Equipo oEquipoVisitante) throws Exception {
-		Torneo oTorneo = existeTorneo(lIdTorneo);
+	private Torneo existeTorneo(long idTorneo) throws Exception {
+		Torneo torneo = this.traerTorneoPorId(idTorneo);
 		
-		Partido oPartido = new Partido(ldtFecha, sEstadio, oEquipoLocal, oEquipoVisitante);
+		if(torneo == null)
+			throw new Exception("ERROR: no existe el torneo con id " + idTorneo);
 		
-		return oTorneo.agregarPartido(oPartido);
+		return torneo;
+	}
+	
+	public boolean agregarPartidoEnTorneo(long idTorneo, LocalDateTime fecha, String estadio, Equipo equipoLocal, Equipo equipoVisitante) throws Exception {
+		Torneo torneo = existeTorneo(idTorneo);
+		
+		Partido partido = new Partido(fecha, estadio, equipoLocal, equipoVisitante);
+		
+		return torneo.agregarPartido(partido);
 	}
 	
 	// Traer
-	public Torneo traerTorneoPorId(long lId) {
-		Torneo oAux = null, oTemp;
-		int i = 0, iTam = this.ltsTorneos.size();
+	public Torneo traerTorneoPorId(long id) {
+		Torneo aux = null, temp;
+		int i = 0, tam = this.ltsTorneos.size();
 		
-		while(oAux == null && i < iTam) {
-			oTemp = this.ltsTorneos.get(i);
+		while(aux == null && i < tam) {
+			temp = this.ltsTorneos.get(i);
 			
-			if(oTemp.getlId() == lId)
-				oAux = oTemp;
+			if(temp.getId() == id)
+				aux = temp;
 			
 			i++;
 		}
 		
-		return oAux;
+		return aux;
 	}
 
-	public Equipo traerEquipoPorCodigoUnico(String sCodigoUnico) throws Exception {
-		Equipo oAux = null, oTemp;
-		int i = 0, iTam = this.ltsEquipos.size();
+	public Equipo traerEquipoPorCodigoUnico(String codigoUnico) throws Exception {
+		Equipo aux = null, temp;
+		int i = 0, tam = this.ltsEquipos.size();
 		
-		while(oAux == null && i < iTam) {
-			oTemp = this.getLtsEquipos().get(i);
+		while(aux == null && i < tam) {
+			temp = this.getLtsEquipos().get(i);
 			
-			if(oTemp.getsCodigoUnico().equalsIgnoreCase(sCodigoUnico))
-				oAux = oTemp;
+			if(temp.getCodigoUnico().equalsIgnoreCase(codigoUnico))
+				aux = temp;
 			
 			i++;
 		}
 		
-		if(oAux == null)
+		if(aux == null)
 			throw new Exception("ERROR: El equipo no existe en el torneo.");
 		
-		return oAux;
+		return aux;
 	}
 	
-	public Entrenador traerEntrenadorPorsDNI(String sDNI) throws Exception {
-		Entrenador oAux = null, oTemp;
-		int i = 0, iTam = this.getLtsEntrenadores().size();
+	public Entrenador traerEntrenadorPorDni(String dni) throws Exception {
+		Entrenador aux = null, temp;
+		int i = 0, tam = this.getLtsEntrenadores().size();
 		
-		while(oAux == null && i < iTam) {
-			oTemp = this.ltsEntrenadores.get(i);
+		while(aux == null && i < tam) {
+			temp = this.ltsEntrenadores.get(i);
 			
-			if(oTemp.getsDNI().equalsIgnoreCase(sDNI))
-				oAux = oTemp;
-			
-			i++;
-		}
-		
-		if(oAux == null)
-			throw new Exception("No existe el entrenador con DNI: " + sDNI);
-		
-		return oAux;
-	}
-	
-	public Jugador traerJugadorPorsDNI(String sDNI) throws Exception {
-		Jugador oAux = null, oTemp;
-		int i = 0, iTam = this.getLtsJugadores().size();
-		
-		while(oAux == null && i < iTam) {
-			oTemp = this.ltsJugadores.get(i);
-			
-			if(oTemp.getsDNI().equalsIgnoreCase(sDNI))
-				oAux = oTemp;
+			if(temp.getDni().equalsIgnoreCase(dni))
+				aux = temp;
 			
 			i++;
 		}
 		
-		if(oAux == null)
-			throw new Exception("No existe el jugador con DNI: " + sDNI);
+		if(aux == null)
+			throw new Exception("No existe el entrenador con DNI: " + dni);
 		
-		return oAux;
+		return aux;
 	}
 	
-	public List<Entrenador> tacticaPreferidaPorEntrenador(Torneo oTorneo, String sTactica){
-		return oTorneo.tacticaPreferidaPorEntrenador(sTactica);
+	public Jugador traerJugadorPorDni(String dni) throws Exception {
+		Jugador aux = null, temp;
+		int i = 0, tam = this.getLtsJugadores().size();
+		
+		while(aux == null && i < tam) {
+			temp = this.ltsJugadores.get(i);
+			
+			if(temp.getDni().equalsIgnoreCase(dni))
+				aux = temp;
+			
+			i++;
+		}
+		
+		if(aux == null)
+			throw new Exception("No existe el jugador con DNI: " + dni);
+		
+		return aux;
 	}
 	
-	public List<Jugador> jugadoresNacidosEntreDosFechasDeUnTorneo(Torneo oTorneo, LocalDate ldFechaInicial, LocalDate ldFechaFinal){
-		return oTorneo.jugadoresNacidosEntreDosFechas(ldFechaInicial, ldFechaFinal);
+	public List<Entrenador> tacticaPreferidaPorEntrenador(Torneo torneo, String tactica){
+		return torneo.tacticaPreferidaPorEntrenador(tactica);
 	}
 	
-	public List<Equipo> fundadosAntesDe(Torneo oTorneo, LocalDate ldFecha){
-		return oTorneo.fundadosAntesDe(ldFecha);
+	public List<Jugador> jugadoresNacidosEntreDosFechasDeUnTorneo(Torneo torneo, LocalDate fechaInicial, LocalDate fechaFinal){
+		return torneo.jugadoresNacidosEntreDosFechas(fechaInicial, fechaFinal);
 	}
 	
-	public String equipoConMasAAltura(Torneo oTorneo) throws Exception {
-		List<Equipo> lstEquipo = oTorneo.getLtsEquipos();
+	public List<Equipo> fundadosAntesDe(Torneo torneo, LocalDate ldFecha){
+		return torneo.fundadosAntesDe(ldFecha);
+	}
+	
+	public String equipoConMasAltura(Torneo torneo) throws Exception {
+		List<Equipo> lstEquipo = torneo.getLtsEquipos();
 		if(lstEquipo.isEmpty())
 			throw new Exception("ERROR: No se puede calcular altura ya que no hay equipos en el torneo");
 		
-		float fAux, fMax = Float.NEGATIVE_INFINITY;
-		String sRetorno = " ";
+		float aux, max = Float.NEGATIVE_INFINITY;
+		String retorno = " ";
 		
 		for(Equipo e: lstEquipo) {
-			fAux = e.promedioDeAltura();
+			aux = e.promedioDeAltura();
 			
-			if(fMax < fAux) {
-				fMax = fAux;
-				sRetorno = e.getsNombre();
+			if(max < aux) {
+				max = aux;
+				retorno = e.getNombre();
 			}
 			
 		}	
 			
-		return "Equipo más alto es (" + sRetorno + ") con una altura de: " + fMax;
+		return "Equipo más alto es (" + retorno + ") con una altura de: " + max;
 	}
 	
-	public String tablaPosiciones(long lIdTorneo) {
-		Torneo oTorneo = this.traerTorneoPorId(lIdTorneo);
-		String sTabla = oTorneo.getsNombre() + " " + oTorneo.getsTemporada() + ":\n";
-		List<Equipo> lstEquiposTorneo = oTorneo.getLtsEquipos();
+	public String tablaPosiciones(long idTorneo) {
+		Torneo torneo = this.traerTorneoPorId(idTorneo);
+		String tabla = torneo.getNombre() + " " + torneo.getTemporada() + ":\n";
+		List<Equipo> lstEquiposTorneo = torneo.getLtsEquipos();
 		List<EquipoPuntosTorneo> lstEquiposPuntos = new ArrayList<EquipoPuntosTorneo>();
 		
 		for(Equipo e: lstEquiposTorneo)
-			lstEquiposPuntos.add(new EquipoPuntosTorneo(e, oTorneo.puntosPorEquipo(e)));
+			lstEquiposPuntos.add(new EquipoPuntosTorneo(e, torneo.puntosPorEquipo(e)));
 		
-		lstEquiposPuntos.sort((a, b) -> Integer.compare(b.getiPuntos(), a.getiPuntos()));
+		lstEquiposPuntos.sort((a, b) -> Integer.compare(b.getPuntos(), a.getPuntos()));
 		
 		for(EquipoPuntosTorneo e: lstEquiposPuntos)
-			sTabla += e.getoEquipo().getsNombre() + " --- " + e.getiPuntos() + "pts.\n";
+			tabla += e.getEquipo().getNombre() + " --- " + e.getPuntos() + "pts.\n";
 			
-		return sTabla;
+		return tabla;
 	}
 	
-	public boolean agregarEstadisticaPartidoTorneo(long lIdTorneo, long lIdPartido, String sDNIJugador, int iGoles, int iAsistencias, int iMinutosJugados) throws Exception {
-		Torneo oTorneo = existeTorneo(lIdTorneo);
+	public boolean agregarEstadisticaPartidoTorneo(long idTorneo, long idPartido, String dniJugador, int goles, int asistencias, int minutosJugados) throws Exception {
+		Torneo torneo = existeTorneo(idTorneo);
 		
-		Partido partido = oTorneo.traerPartidoPorId(lIdPartido);
+		Partido partido = torneo.traerPartidoPorId(idPartido);
 		
-		return partido.agregarEstadisticaPartido(Sistema.getInstance().traerJugadorPorsDNI(sDNIJugador), iGoles, iAsistencias, iMinutosJugados);
+		return partido.agregarEstadisticaPartido(Sistema.getInstance().traerJugadorPorDni(dniJugador), goles, asistencias, minutosJugados);
 	}
 	
-	public String tablaDeGoleadores(long lIdTorneo) throws Exception {
-		Torneo oTorneo = this.traerTorneoPorId(lIdTorneo);
-		String sTabla = "Goleadores " + oTorneo.getsNombre() + " " + oTorneo.getsTemporada() + ":\n";
-		List<EstadisticasTorneoJugador> lst = oTorneo.listaDeEstadisticaDeJugadores();
+	public String tablaDeGoleadores(long idTorneo) throws Exception {
+		Torneo torneo = this.traerTorneoPorId(idTorneo);
+		String tabla = "Goleadores " + torneo.getNombre() + " " + torneo.getTemporada() + ":\n";
+		List<EstadisticasTorneoJugador> lst = torneo.listaDeEstadisticaDeJugadores();
 		
-		lst.sort(Comparator.comparingInt(EstadisticasTorneoJugador::getiTotalGoles).reversed()
-				.thenComparingInt(EstadisticasTorneoJugador::getiTotalMinutosJugados));
+		lst.sort(Comparator.comparingInt(EstadisticasTorneoJugador::getTotalGoles).reversed()
+				.thenComparingInt(EstadisticasTorneoJugador::getTotalMinutosJugados));
 		
 		for(EstadisticasTorneoJugador e: lst) {
 			
-			if(e.getiTotalGoles() > 0)
-				sTabla += e.getoJugador().getsApellido() + " " + e.getoJugador().getsNombre() + ": " + e.getiTotalGoles() + " goles --- " + e.getiTotalMinutosJugados() + "min.\n";
+			if(e.getTotalGoles() > 0)
+				tabla += e.getJugador().getApellido() + " " + e.getJugador().getNombre() + ": " + e.getTotalGoles() + " goles --- " + e.getTotalMinutosJugados() + "min.\n";
 			
 		}
 		
-		return sTabla;
+		return tabla;
 	}
 	
-	public String tablaDeAsistidores(long lIdTorneo) throws Exception {
-		Torneo oTorneo = this.traerTorneoPorId(lIdTorneo);
-		String sTabla = "Goleadores " + oTorneo.getsNombre() + " " + oTorneo.getsTemporada() + ":\n";
-		List<EstadisticasTorneoJugador> lst = oTorneo.listaDeEstadisticaDeJugadores();
+	public String tablaDeAsistidores(long idTorneo) throws Exception {
+		Torneo torneo = this.traerTorneoPorId(idTorneo);
+		String tabla = "Goleadores " + torneo.getNombre() + " " + torneo.getTemporada() + ":\n";
+		List<EstadisticasTorneoJugador> lst = torneo.listaDeEstadisticaDeJugadores();
 		
-		lst.sort(Comparator.comparingInt(EstadisticasTorneoJugador::getiTotalAsistencias).reversed()
-				.thenComparingInt(EstadisticasTorneoJugador::getiTotalMinutosJugados));
+		lst.sort(Comparator.comparingInt(EstadisticasTorneoJugador::getTotalAsistencias).reversed()
+				.thenComparingInt(EstadisticasTorneoJugador::getTotalMinutosJugados));
 		
 		for(EstadisticasTorneoJugador e: lst) {
 			
-			if(e.getiTotalAsistencias() > 0)
-				sTabla += e.getoJugador().getsApellido() + " " + e.getoJugador().getsNombre() + ": " + e.getiTotalAsistencias() + " asistencias --- " + e.getiTotalMinutosJugados() + "min.\n";
+			if(e.getTotalAsistencias() > 0)
+				tabla += e.getJugador().getApellido() + " " + e.getJugador().getNombre() + ": " + e.getTotalAsistencias() + " asistencias --- " + e.getTotalMinutosJugados() + "min.\n";
 			
 		}
 		
-		return sTabla;
+		return tabla;
 	}
 }

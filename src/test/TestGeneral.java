@@ -33,10 +33,10 @@ public class TestGeneral {
 		
 		System.out.println("\nEquipos:");
 		System.out.println("-------------------------------------");
-		Torneo oTorneo = Sistema.getInstance().traerTorneoPorId(1);
-		long lIdTorneo = oTorneo.getlId();
+		Torneo torneo = Sistema.getInstance().traerTorneoPorId(1);
+		long idTorneo = torneo.getId();
 		try {
-			test.TestAgregarDatos.agregarEquipos(lIdTorneo);
+			test.TestAgregarDatos.agregarEquipos(idTorneo);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -54,7 +54,7 @@ public class TestGeneral {
 		}
 		for(Equipo e: Sistema.getInstance().getLtsEquipos()) {
 			
-			System.out.println(e.getsNombre());
+			System.out.println(e.getNombre());
 			for(Jugador j: e.getLtsJugadores())
 				System.out.println(j);
 			
@@ -63,38 +63,38 @@ public class TestGeneral {
 		System.out.println("\nPartidos en el torneo:");
 		System.out.println("-------------------------------------");
 		try {
-			test.TestAgregarDatos.agregarPartidoSinJugar(lIdTorneo);
+			test.TestAgregarDatos.agregarPartidoSinJugar(idTorneo);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		for(Partido p: oTorneo.getLtsPartidos())
+		for(Partido p: torneo.getLtsPartidos())
 			System.out.println(p);
 		
-		String sTactica = "Ofensiva";
-		System.out.println("\nEntrenadores por tactica " + "(" + sTactica + "):");
+		String tactica = "Ofensiva";
+		System.out.println("\nEntrenadores por tactica " + "(" + tactica + "):");
 		System.out.println("-------------------------------------");
-		for(Entrenador e: Sistema.getInstance().tacticaPreferidaPorEntrenador(oTorneo, sTactica))
+		for(Entrenador e: Sistema.getInstance().tacticaPreferidaPorEntrenador(torneo, tactica))
 			System.out.println(e);
 		
 		
-		LocalDate ldFechaInicial = LocalDate.of(1996, 2, 1);
-		LocalDate ldFechaFinal = LocalDate.of(1998, 1, 1);
-		System.out.println("\nFutbolistas nacidos entre " + "(" + ldFechaInicial + ")" + " y " + "(" + ldFechaFinal + "):");
+		LocalDate fechaInicial = LocalDate.of(1996, 2, 1);
+		LocalDate fechaFinal = LocalDate.of(1998, 1, 1);
+		System.out.println("\nFutbolistas nacidos entre " + "(" + fechaInicial + ")" + " y " + "(" + fechaFinal + "):");
 		System.out.println("-------------------------------------");
-		for(Jugador j: Sistema.getInstance().jugadoresNacidosEntreDosFechasDeUnTorneo(oTorneo, ldFechaInicial, ldFechaFinal))
+		for(Jugador j: Sistema.getInstance().jugadoresNacidosEntreDosFechasDeUnTorneo(torneo, fechaInicial, fechaFinal))
 			System.out.println(j);
 		
-		LocalDate ldFundado = LocalDate.of(2010, 5, 6);
-		System.out.println("\nFundados antes de (" + ldFundado + "):");
+		LocalDate fundado = LocalDate.of(2010, 5, 6);
+		System.out.println("\nFundados antes de (" + fundado + "):");
 		System.out.println("-------------------------------------");
-		for(Equipo e: Sistema.getInstance().fundadosAntesDe(oTorneo, ldFundado))
+		for(Equipo e: Sistema.getInstance().fundadosAntesDe(torneo, fundado))
 			System.out.println(e);
 		
 		System.out.println("\nAltura:");
 		System.out.println("-------------------------------------");
 		try {
-			System.out.println(Sistema.getInstance().equipoConMasAAltura(oTorneo));
+			System.out.println(Sistema.getInstance().equipoConMasAltura(torneo));
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -102,22 +102,22 @@ public class TestGeneral {
 		
 		System.out.println("\nTabla de Posiciones:");
 		try {
-			test.TestAgregarDatos.agregarResultadosPartidos(lIdTorneo);
+			test.TestAgregarDatos.agregarResultadosPartidos(idTorneo);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println(Sistema.getInstance().tablaPosiciones(lIdTorneo));
+		System.out.println(Sistema.getInstance().tablaPosiciones(idTorneo));
 		
 		System.out.println("\nPartidos en el torneo:");
 		System.out.println("-------------------------------------");
-		for(Partido p: oTorneo.getLtsPartidos())
+		for(Partido p: torneo.getLtsPartidos())
 			System.out.println(p);
 		
 		System.out.println("\nGoleadores en el torneo:");
 		System.out.println("-------------------------------------");
 		try {
-			System.out.println(Sistema.getInstance().tablaDeGoleadores(lIdTorneo));
+			System.out.println(Sistema.getInstance().tablaDeGoleadores(idTorneo));
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -126,7 +126,7 @@ public class TestGeneral {
 		System.out.println("\nAsistidores en el torneo:");
 		System.out.println("-------------------------------------");
 		try {
-			System.out.println(Sistema.getInstance().tablaDeAsistidores(lIdTorneo));
+			System.out.println(Sistema.getInstance().tablaDeAsistidores(idTorneo));
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

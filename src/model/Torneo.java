@@ -6,73 +6,73 @@ import java.util.List;
 import java.util.Objects;
 
 public class Torneo {
-	private static long lNextId = 1;
+	private static long nextId = 1;
 	
-	private final long lId;
-	private String sNombre;
-	private String sTemporada;
-	private LocalDate ldFechaDeInicio;
-	private LocalDate ldFechaDeFin;
+	private final long id;
+	private String nombre;
+	private String temporada;
+	private LocalDate fechaDeInicio;
+	private LocalDate fechaDeFin;
 	private List<Equipo> ltsEquipos = new ArrayList<Equipo>();
 	private List<Partido> ltsPartidos = new ArrayList<Partido>();
 	
-	public Torneo(String sNombre, String sTemporada, LocalDate ldFechaDeInicio, LocalDate ldFechaDeFin) throws Exception {
-		this.lId = Torneo.lNextId++;
-		this.sNombre = sNombre;
-		this.sTemporada = sTemporada;
-		this.ldFechaDeInicio = ldFechaDeInicio;
-		this.setLdFechaDeFin(ldFechaDeFin);
+	public Torneo(String nombre, String temporada, LocalDate fechaDeInicio, LocalDate fechaDeFin) throws Exception {
+		this.id = Torneo.nextId++;
+		this.nombre = nombre;
+		this.temporada = temporada;
+		this.fechaDeInicio = fechaDeInicio;
+		this.setFechaDeFin(fechaDeFin);
 	}
 
-	public String getsNombre() {
-		return sNombre;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setsNombre(String sNombre) {
-		this.sNombre = sNombre;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getsTemporada() {
-		return sTemporada;
+	public String getTemporada() {
+		return temporada;
 	}
 
-	public void setiTemporada(String sTemporada) {
-		this.sTemporada = sTemporada;
+	public void setTemporada(String temporada) {
+		this.temporada = temporada;
 	}
 
-	public LocalDate getLdFechaDeInicio() {
-		return ldFechaDeInicio;
+	public LocalDate getFechaDeInicio() {
+		return fechaDeInicio;
 	}
 	
-	private void validarFechas(LocalDate ldInicio, LocalDate ldFin) throws Exception {
-		if (ldInicio.isAfter(ldFin))
-	        throw new Exception("ERROR: La fecha de inicio (" + ldInicio + ") no puede ser posterior a la fecha de fin (" + ldFin + ").");
+	private void validarFechas(LocalDate inicio, LocalDate fin) throws Exception {
+		if (inicio.isAfter(fin))
+	        throw new Exception("ERROR: La fecha de inicio (" + inicio + ") no puede ser posterior a la fecha de fin (" + fin + ").");
 	}
 
-	public void setLdFechaDeInicio(LocalDate ldFechaDeInicio) throws Exception {
-		this.validarFechas(ldFechaDeInicio, this.ldFechaDeFin);
-		this.ldFechaDeInicio = ldFechaDeInicio;
+	public void setFechaDeInicio(LocalDate fechaDeInicio) throws Exception {
+		this.validarFechas(fechaDeInicio, this.fechaDeFin);
+		this.fechaDeInicio = fechaDeInicio;
 	}
 
-	public LocalDate getLdFechaDeFin() {
-		return ldFechaDeFin;
+	public LocalDate getFechaDeFin() {
+		return fechaDeFin;
 	}
 
-	public void setLdFechaDeFin(LocalDate ldFechaDeFin) throws Exception {
-		this.validarFechas(this.ldFechaDeInicio, ldFechaDeFin);
-		this.ldFechaDeFin = ldFechaDeFin;
+	public void setFechaDeFin(LocalDate fechaDeFin) throws Exception {
+		this.validarFechas(this.fechaDeInicio, fechaDeFin);
+		this.fechaDeFin = fechaDeFin;
 	}
 
 	public List<Equipo> getLtsEquipos() {
 		return List.copyOf(ltsEquipos);
 	}
 
-	public static long getlNextId() {
-		return lNextId;
+	public static long getNextId() {
+		return nextId;
 	}
 
-	public long getlId() {
-		return lId;
+	public long getId() {
+		return id;
 	}
 
 	public List<Partido> getLtsPartidos() {
@@ -81,8 +81,8 @@ public class Torneo {
 
 	@Override
 	public String toString() {
-		return "Torneo [lId=" + lId + ", sNombre=" + sNombre + ", sTemporada=" + sTemporada + ", ldFechaDeInicio="
-				+ ldFechaDeInicio + ", ldFechaDeFin=" + ldFechaDeFin + "]";
+		return "Torneo [id=" + id + ", nombre=" + nombre + ", temporada=" + temporada + ", fechaDeInicio="
+				+ fechaDeInicio + ", fechaDeFin=" + fechaDeFin + "]";
 	}
 
 	@Override
@@ -94,31 +94,31 @@ public class Torneo {
 		if (getClass() != obj.getClass())
 			return false;
 		Torneo other = (Torneo) obj;
-		return Objects.equals(sNombre, other.sNombre) && Objects.equals(sTemporada, other.sTemporada);
+		return Objects.equals(nombre, other.nombre) && Objects.equals(temporada, other.temporada);
 	}
 
-	public boolean agregarEquipo(Equipo oEquipo) throws Exception {
-		if(this.getLtsEquipos().contains(oEquipo))
+	public boolean agregarEquipo(Equipo equipo) throws Exception {
+		if(this.getLtsEquipos().contains(equipo))
 			throw new Exception("ERROR: El equipo ya esta en el torneo");
 		
-		return this.ltsEquipos.add(oEquipo);
+		return this.ltsEquipos.add(equipo);
 	}
 	
-	public boolean agregarPartido(Partido oPartido) throws Exception {
-		if(this.getLtsPartidos().contains(oPartido))
+	public boolean agregarPartido(Partido partido) throws Exception {
+		if(this.getLtsPartidos().contains(partido))
 			throw new Exception("ERROR: El partido ya esta en el torneo");
 		
-		return this.ltsPartidos.add(oPartido);
+		return this.ltsPartidos.add(partido);
 	}
 	
-	public List<Entrenador> tacticaPreferidaPorEntrenador(String sTactica){
+	public List<Entrenador> tacticaPreferidaPorEntrenador(String tactica){
 		List<Entrenador> lstEntrenadores = new ArrayList<Entrenador>();
 		
 		for(Equipo e: this.getLtsEquipos()) {
-			Entrenador oEntrenador = e.getoEntrenador();
+			Entrenador entrenador = e.getEntrenador();
 			
-			if(oEntrenador.getsEstrategiaFavorita().equalsIgnoreCase(sTactica))
-				lstEntrenadores.add(oEntrenador);
+			if(entrenador.getEstrategiaFavorita().equalsIgnoreCase(tactica))
+				lstEntrenadores.add(entrenador);
 			
 		}
 		
@@ -130,7 +130,7 @@ public class Torneo {
 		
 		for(Equipo e: this.getLtsEquipos()) {
 			
-			if(e.getLdFechaFundacion().isBefore(ldFecha))
+			if(e.getFechaFundacion().isBefore(ldFecha))
 				lstEquipo.add(e);
 			
 		}
@@ -138,15 +138,15 @@ public class Torneo {
 		return lstEquipo;
 	}
 	
-	public List<Jugador> jugadoresNacidosEntreDosFechas(LocalDate ldFechaInicial, LocalDate ldFechaFinal){
+	public List<Jugador> jugadoresNacidosEntreDosFechas(LocalDate fechaInicial, LocalDate fechaFinal){
 		List<Jugador> lstJugador = new ArrayList<Jugador>();
 		
 		for(Equipo e: this.getLtsEquipos()) {
 			
 			for(Jugador j: e.getLtsJugadores()) {
-				LocalDate ldAux = j.getLtFechaDeNacimiento();
+				LocalDate ldAux = j.getFechaDeNacimiento();
 				
-				if(ldAux.isAfter(ldFechaInicial) && ldAux.isBefore(ldFechaFinal))
+				if(ldAux.isAfter(fechaInicial) && ldAux.isBefore(fechaFinal))
 					lstJugador.add(j);
 				
 			}
@@ -156,78 +156,78 @@ public class Torneo {
 		return lstJugador;
 	}
 	
-	public int puntosPorEquipo(Equipo oEquipo) {
-		int iPuntos = 0;
+	public int puntosPorEquipo(Equipo equipo) {
+		int puntos = 0;
 		
 		List<Partido> partidos = this.getLtsPartidos();
 		for(Partido p: partidos) {
 			
-			if(p.getoEquipoLocal().equals(oEquipo) || p.getoEquipoVisitante().equals(oEquipo)) {
-				Equipo oGanador = p.ganador();
+			if(p.getEquipoLocal().equals(equipo) || p.getEquipoVisitante().equals(equipo)) {
+				Equipo ganador = p.ganador();
 				
-				if(oGanador == null) {
-					iPuntos++;
+				if(ganador == null) {
+					puntos++;
 				}
-				else if(oGanador.equals(oEquipo))
-					iPuntos += 3;
+				else if(ganador.equals(equipo))
+					puntos += 3;
 				
 			}
 			
 			
 		}
 		
-		return iPuntos;
+		return puntos;
 	}
 	
-	public Partido traerPartidoPorId(long lId) throws Exception {
-		Partido oPartido = null;
-		int i = 0, iTam = this.ltsPartidos.size();
+	public Partido traerPartidoPorId(long id) throws Exception {
+		Partido partido = null;
+		int i = 0, tam = this.ltsPartidos.size();
 		
-		while(oPartido == null && i<iTam) {
+		while(partido == null && i<tam) {
 			Partido aux = this.getLtsPartidos().get(i);
 			
-			if(aux.getlId() == lId)
-				oPartido = aux;
+			if(aux.getId() == id)
+				partido = aux;
 			
 			i++;
 		}
 		
-		if(oPartido == null)
+		if(partido == null)
 			throw new Exception("ERROR: El partido no existe en el torneo.");
 		
-		return oPartido;
+		return partido;
 	}
 	
-	public EstadisticasTorneoJugador calculoEstadisticasJugadorPorTorneo(Jugador oJugador) throws Exception {
-		boolean bExiste = false;
-		int i = 0, iTam = this.ltsEquipos.size();
+	public EstadisticasTorneoJugador calculoEstadisticasJugadorPorTorneo(Jugador jugador) throws Exception {
+		boolean existe = false;
+		int i = 0, tam = this.ltsEquipos.size();
 		
-		while(!bExiste && i < iTam) {
+		while(!existe && i < tam) {
 			List<Jugador> lst = this.ltsEquipos.get(i).getLtsJugadores();
 			
-			if(lst.contains(oJugador))
-				bExiste = true;
+			if(lst.contains(jugador))
+				existe = true;
 			
 			i++;
 		}
 		
-		if(!bExiste)
+		if(!existe)
 			throw new Exception("El jugador no existe en el torneo.");
 		
-		EstadisticasTorneoJugador oETJ = new EstadisticasTorneoJugador(oJugador);
+		EstadisticasTorneoJugador ETJ = new EstadisticasTorneoJugador(jugador);
 		
 		for(Partido p: this.ltsPartidos) {
 			
 			for(EstadisticaPartidoJugador j: p.getLtsEstadisticasJugadores()) {
 				
-				if(j.getoJugador().equals(oJugador)) 
-					oETJ.sumarEstadisticaPartido(j.getiGoles(), j.getiAsistencias(), j.getiMinutosJugados());
+				if(j.getJugador().equals(jugador)) 
+					ETJ.sumarEstadisticaPartido(j.getGoles(), j.getAsistencias(), j.getMinutosJugados());
 				
 			}
 				
 		}
 		
-		return oETJ;
+		return ETJ;
 	}
 	
 	public List<EstadisticasTorneoJugador> listaDeEstadisticaDeJugadores() throws Exception{
@@ -238,7 +238,7 @@ public class Torneo {
 			for(Jugador j: e.getLtsJugadores()) {
 				EstadisticasTorneoJugador aux = this.calculoEstadisticasJugadorPorTorneo(j);
 				
-				if(aux.getiTotalAsistencias() > 0 || aux.getiTotalGoles() > 0)
+				if(aux.getTotalAsistencias() > 0 || aux.getTotalGoles() > 0)
 					lst.add(aux);
 				
 			}
