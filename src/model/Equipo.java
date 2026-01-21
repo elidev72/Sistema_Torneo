@@ -39,17 +39,6 @@ public class Equipo {
 	public String getCodigoUnico() {
 		return codigoUnico;
 	}
-    /*
-	public void setCodigoUnico(String codigoUnico) throws Exception {
-		if (codigoUnico == null || codigoUnico.isEmpty())
-	        throw new Exception("ERROR: El código único no puede ser nulo o vacío.");
-		
-		if(codigoUnico.length() != 3)
-			throw new Exception("ERROR: el codigo debe tener un largo de 3 caracteres.");
-		
-		this.codigoUnico = codigoUnico;
-	}
-    */
 
     public void setCodigoUnico(String nombre) {
 
@@ -62,7 +51,7 @@ public class Equipo {
         } else {
             // Si el nombre es nulo, puedes lanzar una excepción o asignar un valor por
             // defecto
-            this.codigoUnico = "no tiene nombre"; // Valor por defecto, puedes cambiarlo según convenga
+            this.codigoUnico = "no tiene nombre"; // Valor por defecto
         }
     }
 
@@ -88,16 +77,8 @@ public class Equipo {
 				+ fechaFundacion + ", entrenador=" + entrenador + "]";
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Equipo other = (Equipo) obj;
-		return Objects.equals(codigoUnico, other.codigoUnico);
+	public boolean equals(Equipo equipo) {
+		return codigoUnico.equalsIgnoreCase(equipo.getCodigoUnico());
 	}
 
 	public boolean agregarJugador(Jugador jugador) throws Exception {

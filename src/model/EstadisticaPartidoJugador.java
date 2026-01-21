@@ -71,16 +71,8 @@ public class EstadisticaPartidoJugador {
 		return Objects.hash(jugador);
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EstadisticaPartidoJugador other = (EstadisticaPartidoJugador) obj;
-		return Objects.equals(jugador, other.jugador);
+	public boolean equals(EstadisticaPartidoJugador estadisticaPartidoJugador) {
+		return id == estadisticaPartidoJugador.getId();
 	}
 	
 	

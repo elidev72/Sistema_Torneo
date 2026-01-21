@@ -85,16 +85,8 @@ public class Torneo {
 				+ fechaDeInicio + ", fechaDeFin=" + fechaDeFin + "]";
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Torneo other = (Torneo) obj;
-		return Objects.equals(nombre, other.nombre) && Objects.equals(temporada, other.temporada);
+	public boolean equals(Torneo torneo) {
+		return nombre.equalsIgnoreCase(torneo.getNombre()) && temporada.equalsIgnoreCase(torneo.getTemporada());
 	}
 
 	public boolean agregarEquipo(Equipo equipo) throws Exception {

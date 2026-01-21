@@ -86,17 +86,8 @@ public class Partido {
 		return retorno + "]";
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Partido other = (Partido) obj;
-		return Objects.equals(equipoLocal, other.equipoLocal)
-				&& Objects.equals(equipoVisitante, other.equipoVisitante);
+	public boolean equals(Partido partido) {
+		return fecha.equals(partido.getFecha()) && estadio.equalsIgnoreCase(partido.getEstadio());
 	}
 
 	private int calcularGoles(Equipo equipo) {
