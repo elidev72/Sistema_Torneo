@@ -75,16 +75,8 @@ public abstract class Persona {
 				+ ", dtFechaDeNacimiento=" + fechaDeNacimiento;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Persona other = (Persona) obj;
-		return Objects.equals(dni, other.dni);
+	public boolean equals(Persona persona) {
+		return dni == persona.getDni();
 	}
 	
 }
