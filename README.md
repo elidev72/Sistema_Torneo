@@ -6,11 +6,11 @@ Este proyecto es un sistema de gestión para torneos de fútbol, desarrollado pa
 
 A continuación, se presenta el diagrama UML que describe la estructura de clases del proyecto:
 
-[]
+![Diagrama](https://drive.google.com/uc?export=view&id=1teMFVx0XS0pNFW5R_Rvv-1AR8UbTILWP)
 
-## 📝 Consigna
-https://drive.google.com/file/d/1B-XvgyHJDVFSiOSyLuvX47do9gygeOW1/view?usp=sharing
+## 📝 [Consigna](https://drive.google.com/file/d/1B-XvgyHJDVFSiOSyLuvX47do9gygeOW1/view?usp=sharing)
 
 ## ✅ Tests a Realizar
-https://drive.google.com/file/d/1bbz4GbYPGMGz2gNMjXEkLtWUwIV3tWMN/view?usp=sharing
-https://drive.google.com/file/d/16lHSQJowxTAK0rrxcJCAgi2hXzoP4_FT/view?usp=sharing
+[Test: Torneo “Clausura 2025”](https://drive.google.com/file/d/1bbz4GbYPGMGz2gNMjXEkLtWUwIV3tWMN/view?usp=sharing)
+
+[Test: Torneo "Inicial 2025/26"](https://drive.google.com/file/d/16lHSQJowxTAK0rrxcJCAgi2hXzoP4_FT/view?usp=sharing)
