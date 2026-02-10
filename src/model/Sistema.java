@@ -236,7 +236,7 @@ public class Sistema {
 	
 	public String tablaDeGoleadores(long idTorneo) throws Exception {
 		Torneo torneo = this.traerTorneoPorId(idTorneo);
-		String tabla = "Goleadores " + torneo.getNombre() + " " + torneo.getTemporada() + ":\n";
+		String tabla = "\nGoleadores " + torneo.getNombre() + " " + torneo.getTemporada() + ":\n" + "-------------------------------------" + "\n";
 		List<EstadisticasTorneoJugador> lst = torneo.listaDeEstadisticaDeJugadores();
 		
 		lst.sort(Comparator.comparingInt(EstadisticasTorneoJugador::getTotalGoles).reversed()
@@ -254,7 +254,7 @@ public class Sistema {
 	
 	public String tablaDeAsistidores(long idTorneo) throws Exception {
 		Torneo torneo = this.traerTorneoPorId(idTorneo);
-		String tabla = "Goleadores " + torneo.getNombre() + " " + torneo.getTemporada() + ":\n";
+		String tabla = "\nAsistidores " + torneo.getNombre() + " " + torneo.getTemporada() + ":\n" + "-------------------------------------" + "\n";
 		List<EstadisticasTorneoJugador> lst = torneo.listaDeEstadisticaDeJugadores();
 		
 		lst.sort(Comparator.comparingInt(EstadisticasTorneoJugador::getTotalAsistencias).reversed()
